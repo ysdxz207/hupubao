@@ -1,11 +1,15 @@
 package win.hupubao.beans;
 
+import win.hupubao.annotation.NotNull;
+
 import java.io.Serializable;
 
-public class RequestBean implements Serializable {
+public class RequestBean extends Validatable implements Serializable {
 
     private static final long serialVersionUID = 2813925168595560461L;
+    @NotNull
     private String service;
+    @NotNull
     private String data;
 
     public String getService() {
