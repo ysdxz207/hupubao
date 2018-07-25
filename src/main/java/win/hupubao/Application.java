@@ -2,28 +2,25 @@ package win.hupubao;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.jsoup.Connection;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.spring.annotation.MapperScan;
 import win.hupubao.beans.RequestBean;
 import win.hupubao.beans.ResponseBean;
 import win.hupubao.common.error.SystemError;
-import win.hupubao.common.http.Page;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.utils.SpringContextUtils;
+import win.hupubao.utils.mybatis.MyMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * @author Moses
@@ -33,24 +30,30 @@ import java.util.Map;
 @SpringBootApplication
 @RestController
 @EnableTransactionManagement
-@MapperScan(basePackages = {"win.hupubao.persistence.*"}, markerInterface = Mapper.class)
+@MapperScan(basePackages = {"win.hupubao.mapper"}, markerInterface = MyMapper.class)
 public class Application {
 
     @RequestMapping("/")
     private Object index(HttpServletRequest request,
-                         HttpServletResponse response) {
+                         HttpServletResponse response,
+                         @RequestBody String jsonString) {
         RequestBean requestBean;
         ResponseBean responseBean = new ResponseBean();
         try {
-            Enumeration<String> parameterNames = request.getParameterNames();
-
             JSONObject params = new JSONObject();
+            if (StringUtils.isNotBlank(jsonString)) {
+                params = JSON.parseObject(jsonString);
+            } else {
+                Enumeration<String> parameterNames = request.getParameterNames();
 
-            while (parameterNames.hasMoreElements()) {
-                String parameterName = parameterNames.nextElement();
-                String parameterValue = request.getParameter(parameterName);
-                params.put(parameterName, parameterValue);
+
+                while (parameterNames.hasMoreElements()) {
+                    String parameterName = parameterNames.nextElement();
+                    String parameterValue = request.getParameter(parameterName);
+                    params.put(parameterName, parameterValue);
+                }
             }
+
 
             requestBean = JSON.toJavaObject(params, RequestBean.class);
 
@@ -77,6 +80,7 @@ public class Application {
     }
 
     public static void main(String[] args) {
+
         SpringApplication.run(Application.class, args);
     }
 }

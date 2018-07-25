@@ -14,6 +14,13 @@ public class ResponseBean extends ResponseBase<ResponseBean> implements Serializ
     private static final long serialVersionUID = 2945891986747887468L;
     private String service;
 
+    public ResponseBean() {
+    }
+
+    public ResponseBean(String service) {
+        this.service = service;
+    }
+
     public String getService() {
         return service;
     }

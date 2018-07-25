@@ -1,4 +1,4 @@
-package win.hupubao.annotation;
+package win.hupubao.core.annotation;
 
 import java.lang.annotation.*;
 

@@ -1,23 +1,23 @@
 package win.hupubao.domain;
 
-import win.hupubao.annotation.NotNull;
+import win.hupubao.core.annotation.NotNull;
 import win.hupubao.beans.Validatable;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
-@Table(name = "user")
+@Entity
 public class User extends Validatable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private String id;
 	@NotNull(message = "用户名不可为空")
-	private String loginname;
+	private String username;
 	private String nickname;
 	@NotNull(message = "密码不可为空")
-	private transient String password;
+	private String password;
 	private Long createTime;
 	private Long lastLoginTime;
 	private Integer status;
@@ -41,12 +41,12 @@ public class User extends Validatable {
 		this.id = id;
 	}
 
-	public String getLoginname() {
-		return loginname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLoginname(String loginname) {
-		this.loginname = loginname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getNickname() {

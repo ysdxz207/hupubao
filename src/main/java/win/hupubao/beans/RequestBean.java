@@ -1,6 +1,6 @@
 package win.hupubao.beans;
 
-import win.hupubao.annotation.NotNull;
+import win.hupubao.core.annotation.NotNull;
 
 import java.io.Serializable;
 /**

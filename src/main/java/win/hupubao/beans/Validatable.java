@@ -1,9 +1,11 @@
 package win.hupubao.beans;
 
 import com.alibaba.fastjson.JSON;
-import win.hupubao.annotation.NotNull;
+import win.hupubao.common.error.SystemError;
+import win.hupubao.common.error.Throws;
+import win.hupubao.core.annotation.NotNull;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.exception.ValidationException;
+import win.hupubao.core.exception.ValidationException;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -45,9 +47,9 @@ public abstract class Validatable implements Serializable {
         }
         if (!map.isEmpty()) {
 
-            throw new ValidationException(JSON.
-                    toJSONString(StringUtils.join(map.values().
-                            toArray(), ",")));
+            Throws.throwError(SystemError.PARAMETER_ERROR.error_code,
+                    StringUtils.join(map.values().
+                                    toArray(), ","));
         }
     }
 }
