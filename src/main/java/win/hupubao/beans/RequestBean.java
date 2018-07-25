@@ -3,14 +3,19 @@ package win.hupubao.beans;
 import win.hupubao.annotation.NotNull;
 
 import java.io.Serializable;
-
+/**
+ *
+ * @author Moses
+ * @date 2018-07-4
+ * 请求参数
+ */
 public class RequestBean extends Validatable implements Serializable {
 
     private static final long serialVersionUID = 2813925168595560461L;
     @NotNull
     private String service;
     @NotNull
-    private String data;
+    private String bizContent;
 
     public String getService() {
         return service;
@@ -20,11 +25,11 @@ public class RequestBean extends Validatable implements Serializable {
         this.service = service;
     }
 
-    public String getData() {
-        return data;
+    public String getBizContent() {
+        return bizContent;
     }
 
-    public void setData(String data) {
-        this.data = data;
+    public void setBizContent(String bizContent) {
+        this.bizContent = bizContent;
     }
 }
