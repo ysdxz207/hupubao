@@ -1,11 +1,15 @@
 package win.hupubao.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import win.hupubao.beans.RequestBean;
 import win.hupubao.beans.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.DesUtils;
+import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.Md5Utils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.constants.Constants;
@@ -27,15 +31,20 @@ import java.util.Map;
 public class UserService extends BaseService{
 
 
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
+
     @Autowired
     private UserMapper userMapper;
 
 
+    @LogReqResArgs
     public ResponseBean login(HttpServletRequest request,
                               HttpServletResponse response,
                               RequestBean requestBean) {
         ResponseBean responseBean = new ResponseBean(requestBean.getService());
 
+        logger.info("嘿嘿日志");
+        logger.error("嘿嘿日志");
         try {
 
             User user = getEntity(requestBean, User.class, true);

@@ -1,11 +1,15 @@
 spring:
   profiles:
-    active: prod
+    active: dev
   datasource:
     url: jdbc:sqlite::resource:db/hupubao.db
     username:
     password:
     driver-class-name: org.sqlite.JDBC
+  devtools:
+    restart:
+      enabled: false
+
 mybatis:
   type-aliases-package: org.spring.springboot.domain
 mapper:
@@ -13,8 +17,5 @@ mapper:
   not-empty: false
 server:
   port: 8888
-
-test:
-  aa: aaa
 
 
