@@ -1,12 +1,18 @@
 package win.hupubao.domain;
 
-import win.hupubao.core.annotation.NotNull;
 import win.hupubao.beans.Validatable;
+import win.hupubao.core.annotation.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+/**
+ *
+ * @author W.feihong
+ * @date 2018-07-26
+ *
+ */
 @Entity
 public class User extends Validatable {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +33,7 @@ public class User extends Validatable {
 	@Transient
 	private String roleName;
 	@Transient
+	@NotNull(message = "验证码不可为空")
 	private String captcha;
 	@Transient
 	private String sessionCaptcha;

@@ -3,7 +3,6 @@ package win.hupubao.core.errors;
 import win.hupubao.common.error.ErrorInfo;
 
 public enum LoginError implements ErrorInfo {
-    EMPTY_CAPTCHA_ERROR("EMPTY_CAPTCHA_ERROR", "请输入验证码"),
     WRONG_CAPTCHA_ERROR("WRONG_CAPTCHA_ERROR", "验证码错误"),
     WRONG_USERNAME_OR_PASSWORD_ERROR("WRONG_USERNAME_OR_PASSWORD_ERROR", "用户名或密码错误"),
     NO_AUTH_ERROR("NO_AUTH_ERROR", "未登录");
