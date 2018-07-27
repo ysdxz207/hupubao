@@ -1,21 +1,30 @@
 package win.hupubao.service;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 import win.hupubao.beans.RequestBean;
 import win.hupubao.beans.ResponseBean;
 import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.Throws;
-import win.hupubao.common.utils.DesUtils;
+import win.hupubao.common.exception.ThrowsBisinessException;
 import win.hupubao.common.utils.Md5Utils;
 import win.hupubao.common.utils.StringUtils;
+import win.hupubao.common.utils.rsa.RSA;
 import win.hupubao.constants.Constants;
+import win.hupubao.core.configuration.AuthConfiguration;
 import win.hupubao.core.errors.LoginError;
 import win.hupubao.domain.User;
+import win.hupubao.domain.UserSecurity;
 import win.hupubao.mapper.UserMapper;
+import win.hupubao.mapper.UserSecurityMapper;
+import win.hupubao.utils.CookieUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -25,10 +34,15 @@ import java.util.Map;
  */
 
 @Service
+@EnableAutoConfiguration
 public class UserService extends BaseService{
 
     @Autowired
+    private AuthConfiguration authConfiguration;
+    @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private UserSecurityMapper userSecurityMapper;
 
 
     @LogReqResArgs
@@ -47,16 +61,16 @@ public class UserService extends BaseService{
             }
 
             user.setPassword(Md5Utils.md5(user.getPassword() + Constants.PASSWORD_MD5_SALT));
-            user = userMapper.selectOne(user);
+            User userLogin = userMapper.selectOne(user);
 
-            if (user == null) {
+            if (userLogin == null) {
                 responseBean.error(LoginError.WRONG_USERNAME_OR_PASSWORD_ERROR);
             } else {
-                responseBean.success(user);
+                responseBean.success(userLogin);
                 //登录成功
-//                rememberMe()
-                user.setPassword(null);
-                request.getSession().setAttribute(Constants.SESSION_USER_KEY, user);
+                rememberMe(response, user);
+                userLogin.setPassword(null);
+                request.getSession().setAttribute(Constants.SESSION_USER_KEY, userLogin);
             }
         } catch (Exception e) {
             responseBean.error(e);
@@ -65,26 +79,103 @@ public class UserService extends BaseService{
         return responseBean;
     }
 
-    public User cookieLogin(HttpServletRequest request,
-                            HttpServletResponse response,
-                            RequestBean requestBean,
-                            Map<String, String> cookies,
-                            String sessionCaptcha) throws Exception {
+    private void rememberMe(HttpServletResponse response,
+                            User user) throws Exception{
 
-        User user = null;
-        String str = cookies.get(Constants.COOKIE_LOGIN_KEY_FBLOG);
+        //自动登录
+        boolean rememberMe = StringUtils.isNotBlank(user.getRememberMe())
+                && ("on".equalsIgnoreCase(user.getRememberMe()) || Boolean.valueOf(user.getRememberMe()));
 
-        if (StringUtils.isNotBlank(str)) {
-            user = new User();
-            String[] strArr = DesUtils.decrypt(str, Constants.DES_KEY).split("_");
-            user.setUsername(strArr[0]);
-            user.setPassword(strArr[1]);
-            user.setCaptcha(sessionCaptcha);
-            user.setSessionCaptcha(sessionCaptcha);
-//            user = login(request, response, requestBean);
+
+        if (!rememberMe) {
+            return;
         }
 
+        //每次自动登录都生成一对私钥公钥
+        RSA rsa = RSA.getInstance();
+        RSA.RSAKey rsaKey = rsa.generateRSAKey();
 
-        return user;
+        UserSecurity userSecurity = new UserSecurity();
+        userSecurity.setUserId(user.getId());
+        userSecurity = userSecurityMapper.selectOne(userSecurity);
+
+        if (userSecurity == null) {
+            userSecurity = new UserSecurity();
+            userSecurity.setUserId(user.getId());
+            userSecurity.setCreateTime(System.currentTimeMillis());
+        }
+        userSecurity.setPrivateKey(rsaKey.getPrivateKey());
+        userSecurity.setPublicKey(rsaKey.getPublicKey());
+
+        if (userSecurity.getId() == null) {
+            userSecurityMapper.insertSelective(userSecurity);
+        } else {
+            userSecurityMapper.updateByPrimaryKey(userSecurity);
+        }
+
+        String cookieStr = JSON.toJSONString(user);
+        try {
+            cookieStr = rsa.rsaKey(rsaKey).encryptByPrivateKey(cookieStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        cookieStr = user.getId() + "-" + cookieStr;
+        Cookie cookie = new Cookie(Constants.COOKIE_LOGIN_KEY_FBLOG,
+                cookieStr);
+        cookie.setMaxAge(24 * 3600 * 365);
+        response.addCookie(cookie);
+
+    }
+
+    public boolean cookieLogin(HttpServletRequest request,
+                            HttpServletResponse response,
+                            RequestBean requestBean) throws Exception {
+
+        String str = CookieUtils.getCookie(request, Constants.COOKIE_LOGIN_KEY_FBLOG);
+
+        if (StringUtils.isNotBlank(str)) {
+            String [] arr = str.split("_");
+            String userId = arr[0];
+            str = arr[1];
+
+            UserSecurity userSecurity = new UserSecurity();
+            userSecurity.setUserId(userId);
+            userSecurity = userSecurityMapper.selectOne(userSecurity);
+
+            if (userSecurity == null) {
+                return false;
+            }
+
+            RSA.RSAKey rsaKey = new RSA.RSAKey(userSecurity.getPrivateKey(), userSecurity.getPublicKey());
+
+            str = RSA.getInstance().rsaKey(rsaKey).decryptByPublicKey(str);
+            User user = JSON.toJavaObject(JSON.parseObject(str), User.class);
+
+            if (user != null) {
+                String sessionCaptcha = (String) request.getSession().getAttribute(Constants.CAPTCHA_SESSION_KEY);
+                user.setCaptcha(sessionCaptcha);
+                user.setSessionCaptcha(sessionCaptcha);
+                return "SUCCESS".equals(login(request, response, requestBean).getErrorCode());
+            }
+        }
+
+        return false;
+    }
+
+
+    public void vilidateAuth(HttpServletRequest request,
+                             HttpServletResponse response,
+                             RequestBean requestBean) throws Exception {
+        String service = requestBean.getService();
+        //非登录排除且未登录
+        if (!authConfiguration.getExcludes().contains(service)
+                && StringUtils.isEmpty(request.getSession().getAttribute(Constants.SESSION_USER_KEY))
+                && cookieLogin(request, response, requestBean)) {
+            Throws.throwError(LoginError.NO_AUTH_ERROR);
+        }
+
+        //权限
+
+
     }
 }

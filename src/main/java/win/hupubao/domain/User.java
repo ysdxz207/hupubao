@@ -3,9 +3,7 @@ package win.hupubao.domain;
 import win.hupubao.beans.Validatable;
 import win.hupubao.core.annotation.NotNull;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 /**
  *
@@ -18,6 +16,7 @@ public class User extends Validatable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select (strftime('%Y%m%d%H%M%s','now','localtime'))")
 	private String id;
 	@NotNull(message = "用户名不可为空")
 	private String username;
@@ -35,6 +34,8 @@ public class User extends Validatable {
 	@Transient
 	@NotNull(message = "验证码不可为空")
 	private String captcha;
+	@Transient
+	private String rememberMe;
 	@Transient
 	private String sessionCaptcha;
 	@Transient
@@ -110,6 +111,14 @@ public class User extends Validatable {
 
 	public void setRoleName(String roleName) {
 		this.roleName = roleName;
+	}
+
+	public String getRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(String rememberMe) {
+		this.rememberMe = rememberMe;
 	}
 
 	public String getCaptcha() {

@@ -2,27 +2,30 @@ package win.hupubao;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.spring.annotation.MapperScan;
 import win.hupubao.beans.RequestBean;
 import win.hupubao.beans.ResponseBean;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
+import win.hupubao.core.configuration.AuthConfiguration;
+import win.hupubao.service.UserService;
 import win.hupubao.utils.SpringContextUtils;
 import win.hupubao.utils.mybatis.MyMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.stream.Collectors;
@@ -35,8 +38,15 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 @RestController
 @EnableTransactionManagement
+@EnableAutoConfiguration
 @MapperScan(basePackages = {"win.hupubao.mapper"}, markerInterface = MyMapper.class)
 public class Application {
+
+
+
+    @Autowired
+    private UserService userService;
+
 
     @RequestMapping("/")
     private Object index(HttpServletRequest request,
@@ -75,19 +85,24 @@ public class Application {
             String className = StringUtils.firstToUpperCase(service[0]) + "Service";
             String methodName = service[1];
 
-            Class<?> cla = Class.forName(new StringBuilder("win.hupubao.service.")
-                    .append(className).toString());
+            //登录及权限
+            userService.vilidateAuth(request, response, requestBean);
+
+            Class<?> cla = Class.forName("win.hupubao.service." +
+                    className);
             Object clazz = SpringContextUtils.getBean(cla);
             Method method = clazz.getClass().getDeclaredMethod(methodName,
                     HttpServletRequest.class,
                     HttpServletResponse.class, RequestBean.class);
+
+
             try {
                 return method.invoke(clazz, request, response, requestBean);
             } catch (Exception e) {
                 return responseBean.error(e);
             }
         } catch (Exception e) {
-            responseBean.error(SystemError.PARAMETER_ERROR);
+            responseBean.error(e);
         }
 
         return responseBean;
