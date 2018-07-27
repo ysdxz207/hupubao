@@ -4,7 +4,11 @@
     <property name="LOG_HOME" value="/logs"/>
 
     <!--数据库配置-->
-    <!--<property resource="application.yml" />-->
+    <property resource="application.yml" />
+
+    <springProperty  name="LOG_DB_DRIVER" source="spring.datasource.driver-class-name"/>
+    <springProperty  name="LOG_DB_URL" source="spring.datasource.url"/>
+
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -42,8 +46,8 @@
     <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
         <!--日志异步到数据库 -->
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
-            <driverClass>org.sqlite.JDBC</driverClass>
-            <url>jdbc:sqlite::resource:db/hupubao.db</url>
+            <driverClass>${LOG_DB_DRIVER}</driverClass>
+            <url>${LOG_DB_URL}</url>
         </connectionSource>
     </appender>
 
@@ -52,15 +56,13 @@
     <springProfile name="dev">
         <root level="INFO">
             <appender-ref ref="STDOUT"/>
-            <appender-ref ref="FILE"/>
-            <appender-ref ref="DB"/>
         </root>
     </springProfile>
 
     <!-- 生产环境下的日志配置 -->
     <springProfile name="prod">
         <root level="INFO">
-            <appender-ref ref="FILE"/>
+            <appender-ref ref="DB"/>
         </root>
     </springProfile>
 </configuration>
