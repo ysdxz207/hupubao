@@ -2,7 +2,7 @@ spring:
   profiles:
     active: dev
   datasource:
-    url: jdbc:sqlite:src/main/resources/db/hupubao.db
+    url: jdbc:sqlite:db/hupubao.db
     username:
     password:
     driver-class-name: org.sqlite.JDBC
