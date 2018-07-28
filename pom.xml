@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>hupubao</name>
-	<description>Demo project for Spring Boot</description>
+	<description>hupubao</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -23,6 +23,13 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
+
+    <repositories>
+        <repository>
+            <id>spring-milestone</id>
+            <url>http://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
 
 	<dependencies>
 		<dependency>
@@ -58,8 +65,15 @@
             <version>2.0.3</version>
         </dependency>
 
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper-spring-boot-starter</artifactId>
+			<version>1.2.5</version>
+		</dependency>
 
-        <dependency>
+
+
+		<dependency>
 			<groupId>win.hupubao</groupId>
 			<artifactId>hupubao-common</artifactId>
 			<version>1.1.2</version>
@@ -79,6 +93,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<fork>true</fork>
+                    <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+					<mainClass>win.hupubao.Application</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

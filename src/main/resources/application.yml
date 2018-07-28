@@ -28,6 +28,10 @@ mapper:
   mappers: win.hupubao.utils.mybatis.MyMapper
   not-empty: false
 
+logging:
+  level:
+    win.hupubao: debug
+
 server:
   port: 8888
 
@@ -36,3 +40,7 @@ auth:
   excludes:
     - user.login
     - captcha.create
+access:
+  origin:
+    allow-origins:
+    - http://127.0.0.1:8010

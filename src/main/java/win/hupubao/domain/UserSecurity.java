@@ -1,9 +1,11 @@
 package win.hupubao.domain;
 
-import win.hupubao.beans.Validatable;
-import win.hupubao.core.annotation.NotNull;
+import tk.mybatis.mapper.annotation.KeySql;
+import win.hupubao.core.generator.IdGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.io.Serializable;
 
 /**
  *
@@ -12,15 +14,14 @@ import javax.persistence.*;
  *
  */
 @Entity
-public class UserSecurity extends Validatable {
+public class UserSecurity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "select (strftime('%Y%m%d%H%M%s','now','localtime'))")
+	@KeySql(genId = IdGenerator.class)
 	private String id;
 	private String userId;
-	private String privateKey;
-	private String publicKey;
+	private String desKey;
 	private Long createTime;
 
 	public String getId() {
@@ -39,20 +40,12 @@ public class UserSecurity extends Validatable {
 		this.userId = userId;
 	}
 
-	public String getPrivateKey() {
-		return privateKey;
+	public String getDesKey() {
+		return desKey;
 	}
 
-	public void setPrivateKey(String privateKey) {
-		this.privateKey = privateKey;
-	}
-
-	public String getPublicKey() {
-		return publicKey;
-	}
-
-	public void setPublicKey(String publicKey) {
-		this.publicKey = publicKey;
+	public void setDesKey(String desKey) {
+		this.desKey = desKey;
 	}
 
 	public Long getCreateTime() {

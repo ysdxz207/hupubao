@@ -1,27 +1,23 @@
-package win.hupubao.service;
+package win.hupubao.action.user;
 
-import org.springframework.stereotype.Service;
-import win.hupubao.beans.RequestBean;
-import win.hupubao.beans.ResponseBean;
+import org.springframework.stereotype.Component;
+import win.hupubao.action.BaseAction;
+import win.hupubao.beans.sys.RequestBean;
+import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.utils.Captcha;
 import win.hupubao.constants.Constants;
+import win.hupubao.core.annotation.ServiceInfo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * @author W.feihong
- * @date 2018-07-25
- * 验证码服务
- */
+@Component("captcha")
+public class CatpchaAction extends BaseAction {
 
-@Service
-public class CaptchaService extends BaseService{
-
-
+    @ServiceInfo(value = "create")
     public ResponseBean create(HttpServletRequest request,
-                              HttpServletResponse response,
-                              RequestBean requestBean) {
+                               HttpServletResponse response,
+                               RequestBean requestBean) {
         ResponseBean responseBean = new ResponseBean(requestBean.getService());
 
         try {
@@ -35,5 +31,4 @@ public class CaptchaService extends BaseService{
         }
         return responseBean;
     }
-
 }

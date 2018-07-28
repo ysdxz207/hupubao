@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class CookieUtils {
 
-    public static String getCookie(HttpServletRequest request,String cookieName){
+    public static String getCookie(HttpServletRequest request, String cookieName){
 
         Cookie[] cookies =  request.getCookies();
         if(cookies != null){
@@ -26,10 +26,17 @@ public class CookieUtils {
         return null;
     }
 
-    public static void addCookie(HttpServletResponse response, String cookieName,String value){
+    public static void addCookie(HttpServletResponse response, String cookieName, String value){
         Cookie cookie = new Cookie(cookieName, value);
         cookie.setPath("/");
         cookie.setMaxAge(3600 * 24 * 365);
+        response.addCookie(cookie);
+    }
+
+    public static void removeCookie(HttpServletResponse response, String cookieName){
+        Cookie cookie = new Cookie(cookieName, null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
         response.addCookie(cookie);
     }
 

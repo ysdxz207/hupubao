@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.spring.annotation.MapperScan;
-import win.hupubao.beans.RequestBean;
-import win.hupubao.beans.ResponseBean;
+import win.hupubao.beans.sys.RequestBean;
+import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.error.SystemError;
+import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
-import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.configuration.AuthConfiguration;
+import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.service.UserService;
 import win.hupubao.utils.SpringContextUtils;
 import win.hupubao.utils.mybatis.MyMapper;
@@ -51,53 +51,58 @@ public class Application {
     @RequestMapping("/")
     private Object index(HttpServletRequest request,
                          HttpServletResponse response) {
-        RequestBean requestBean;
+        RequestBean requestBean = new RequestBean();
         ResponseBean responseBean = new ResponseBean();
         JSONObject params = new JSONObject();
 
         try {
-            String methodType = request.getMethod();
-            HttpMethod httpMethod = HttpMethod.valueOf(methodType);
-
-            switch (httpMethod) {
-                case GET:
-                    Enumeration<String> parameterNames = request.getParameterNames();
-
-
-                    while (parameterNames.hasMoreElements()) {
-                        String parameterName = parameterNames.nextElement();
-                        String parameterValue = request.getParameter(parameterName);
-                        params.put(parameterName, parameterValue);
-                    }
-                    break;
-                case POST:
-
-                    String jsonString = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
-                    params = JSON.parseObject(jsonString);
-                    break;
-                    default:
-                        return responseBean.errorMessage("Unsupported request method.");
+            Enumeration<String> parameterNames = request.getParameterNames();
+            while (parameterNames.hasMoreElements()) {
+                String parameterName = parameterNames.nextElement();
+                String parameterValue = request.getParameter(parameterName);
+                params.put(parameterName, parameterValue);
             }
 
-            requestBean = JSON.toJavaObject(params, RequestBean.class);
+            if (params.isEmpty()) {
+                String jsonString = request.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+                params = JSON.parseObject(jsonString);
+            }
 
-            String[] service = requestBean.getService().split("\\.");
-            String className = StringUtils.firstToUpperCase(service[0]) + "Service";
-            String methodName = service[1];
+            String[] services = null;
+            String beanName = null;
+            String methodName = null;
+            try {
+                requestBean = JSON.toJavaObject(params, RequestBean.class);
+                services = requestBean.getService().split("\\.");
+                beanName = services[0].toLowerCase();
+                methodName = services[1];
+            } catch (Exception e) {
+                Throws.throwError(SystemError.PARAMETER_ERROR);
+            }
 
             //登录及权限
             userService.vilidateAuth(request, response, requestBean);
 
-            Class<?> cla = Class.forName("win.hupubao.service." +
-                    className);
-            Object clazz = SpringContextUtils.getBean(cla);
-            Method method = clazz.getClass().getDeclaredMethod(methodName,
-                    HttpServletRequest.class,
-                    HttpServletResponse.class, RequestBean.class);
+            Object action = SpringContextUtils.getBean(beanName);
 
+            Method [] methods = action.getClass().getDeclaredMethods();
+            Method method = null;
+            for (Method m :
+                    methods) {
+                ServiceInfo serviceName = m.getAnnotation(ServiceInfo.class);
+                if (serviceName != null
+                        && serviceName.value().equals(methodName)) {
+                    method = m;
+                    break;
+                }
+            }
+
+            if (method == null) {
+                Throws.throwError(SystemError.PARAMETER_ERROR);
+            }
 
             try {
-                return method.invoke(clazz, request, response, requestBean);
+                return method.invoke(action, request, response, requestBean);
             } catch (Exception e) {
                 return responseBean.error(e);
             }

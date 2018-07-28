@@ -1,4 +1,4 @@
-package win.hupubao.beans;
+package win.hupubao.beans.sys;
 
 import win.hupubao.common.beans.ResponseBase;
 

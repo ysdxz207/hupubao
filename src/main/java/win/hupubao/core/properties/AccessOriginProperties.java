@@ -1,4 +1,4 @@
-package win.hupubao.core.configuration;
+package win.hupubao.core.properties;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,18 +10,18 @@ import java.util.List;
 /**
  *
  * @author W.feihong
- * @date 2018-07-27
+ * @date 2018-07-28
  *
  */
 @Configuration
 @EnableAutoConfiguration
-@ConfigurationProperties(prefix = "auth")
-public class AuthConfiguration {
+@ConfigurationProperties(prefix = "access.origin")
+public class AccessOriginProperties {
 
-    private List<String> excludes = new ArrayList<>();
+    private List<String> allowOrigins = new ArrayList<>();
 
 
-    public List<String> getExcludes() {
-        return excludes;
+    public List<String> getAllowOrigins() {
+        return allowOrigins;
     }
 }
