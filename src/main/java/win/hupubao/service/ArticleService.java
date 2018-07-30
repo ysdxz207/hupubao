@@ -20,6 +20,7 @@ import win.hupubao.mapper.ArticleMapper;
 import win.hupubao.mapper.ArticleTagMapper;
 import win.hupubao.mapper.TagMapper;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -73,13 +74,13 @@ public class ArticleService {
     }
 
     private void createArticleTags(ArticleBean articleBean) {
+
         if(articleBean == null ||
-                articleBean.getTagList() == null
-                || articleBean.getTagList().isEmpty()) {
+                articleBean.getTags() == null) {
             return;
         }
 
-        List<TagBean> tagNameList = articleBean.getTagList();
+        String[] tagNameList = articleBean.getTags().split(",");
 
         //删除文章关联的已存在的标签
         if (articleBean.getId() != null) {
@@ -90,27 +91,28 @@ public class ArticleService {
             articleTagMapper.deleteByExample(example);
         }
         //创建并关联标签
-        for (TagBean tagBean : tagNameList) {
+        for (String tagName : tagNameList) {
+            if (StringUtils.isEmpty(tagName)) {
+                continue;
+            }
             Tag tag = new Tag();
-            tag.setName(tagBean.getName());
-            tag = tagMapper.selectOne(tag);
-            if (tag == null) {
+            tag.setName(tagName);
+            Tag tagDB = tagMapper.selectOne(tag);
+            if (tagDB == null) {
                 tagMapper.insertSelective(tag);
             } else {
-                BeanUtils.copyProperties(tag, tagBean);
+                BeanUtils.copyProperties(tagDB, tag);
             }
 
-            ArticleTagBean articleTagBean = new ArticleTagBean();
-            articleTagBean.setArticleId(articleBean.getId());
-            articleTagBean.setTagId(tagBean.getId());
-            articleTagMapper.insertSelective(articleTagBean);
+            ArticleTag articleTag = new ArticleTag();
+            articleTag.setArticleId(articleBean.getId());
+            articleTag.setTagId(tag.getId());
+            articleTagMapper.insertSelective(articleTag);
         }
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(String id) {
-        if (articleMapper.deleteByPrimaryKey(id) == 0) {
-            Throws.throwError(ArticleEditError.ARTICLE_DELETE_ERROR);
-        }
+        articleMapper.deleteByPrimaryKey(id);
     }
 }

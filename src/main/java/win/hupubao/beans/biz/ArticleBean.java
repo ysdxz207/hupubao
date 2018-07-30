@@ -19,6 +19,9 @@ public class ArticleBean extends Article {
     private Integer accessCountAll;
     @Transient
     private Integer accessCountToday;
+    @Transient
+    private String tags;
+
 
     public String getCategory() {
         return category;
@@ -58,5 +61,13 @@ public class ArticleBean extends Article {
 
     public void setAccessCountToday(Integer accessCountToday) {
         this.accessCountToday = accessCountToday;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

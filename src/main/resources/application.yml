@@ -24,9 +24,11 @@ mybatis:
   type-aliases-package: org.spring.springboot.domain
   configuration:
     map-underscore-to-camel-case: true
+  mapper-locations: classpath:mybatis/mapper/*.xml
 mapper:
   mappers: win.hupubao.utils.mybatis.MyMapper
   not-empty: false
+
 
 logging:
   level:
