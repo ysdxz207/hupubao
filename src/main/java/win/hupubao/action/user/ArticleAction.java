@@ -13,6 +13,7 @@ import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.Article;
+import win.hupubao.mapper.TagMapper;
 import win.hupubao.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,8 @@ public class ArticleAction extends BaseAction {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private TagMapper tagMapper;
 
     @ServiceInfo(value = "list", permissions = {"article:view"})
     public String articles(HttpServletRequest request,
@@ -98,6 +101,22 @@ public class ArticleAction extends BaseAction {
             responseBean.success();
         } catch (Exception e) {
             responseBean.error(e);
+        }
+        return responseBean.serialize();
+    }
+
+    @ServiceInfo(value = "tags", permissions = {"article:view"})
+    public String tags(HttpServletRequest request,
+                         HttpServletResponse response,
+                         RequestBean requestBean) {
+
+        ResponseBean responseBean = createResponseBean(requestBean);
+        try {
+            Article article = getEntity(requestBean, Article.class);
+            responseBean.success(articleService.detail(article.getId()));
+        } catch (Exception e) {
+            responseBean.error(e);
+            LoggerUtils.error(e);
         }
         return responseBean.serialize();
     }

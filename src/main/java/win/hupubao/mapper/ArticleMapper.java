@@ -13,10 +13,11 @@ import java.util.List;
 public interface ArticleMapper extends MyMapper<Article> {
 
 
-    @Select("select * from article where id=${id}")
+    @Select("select * from article where id=#{id}")
     @Results({
             @Result(id = true, property = "id", column = "id"),
-            @Result(column = "{articleId=id}", property = "tagList", javaType = List.class,
+            @Result(column = "title", property = "title"),
+            @Result(column = "articleId", property = "tagList", javaType = List.class,
                     many = @Many(
                             select = "win.hupubao.mapper.TagMapper.selectTagListByArticleId",
                             fetchType = FetchType.EAGER
