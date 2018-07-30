@@ -9,6 +9,7 @@ import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
+import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.Article;
@@ -52,11 +53,12 @@ public class ArticleAction extends BaseAction {
         ResponseBean responseBean = createResponseBean(requestBean);
         try {
             Article article = getEntity(requestBean, Article.class);
-            ArticleBean articleBean = articleService.selectArticleBean(article.getId());
+            ArticleBean articleBean = articleService.detail(article.getId());
 
             responseBean.success(articleBean);
         } catch (Exception e) {
             responseBean.error(e);
+            LoggerUtils.error(e);
         }
         return responseBean.serialize();
     }
@@ -70,7 +72,7 @@ public class ArticleAction extends BaseAction {
         try {
             ArticleBean articleBean = getEntity(requestBean, ArticleBean.class);
 
-            articleService.inserOrUpdate(articleBean);
+            articleService.edit(articleBean);
 
             responseBean.success();
         } catch (Exception e) {
