@@ -16,6 +16,7 @@ import win.hupubao.core.errors.ArticleEditError;
 import win.hupubao.domain.Article;
 import win.hupubao.domain.ArticleTag;
 import win.hupubao.domain.Tag;
+import win.hupubao.enums.ArticleType;
 import win.hupubao.mapper.ArticleMapper;
 import win.hupubao.mapper.ArticleTagMapper;
 import win.hupubao.mapper.TagMapper;
@@ -42,7 +43,8 @@ public class ArticleService {
 
     public PageBean<Article> selectArticleList(Article article,
                                                PageBean<Article> pageBean) {
-        PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
+        PageHelper.startPage(pageBean.getPageNum(),
+                pageBean.getPageSize(), "create_date desc");
         List<Article> articleList = articleMapper.select(article);
         pageBean.setList(articleList);
         pageBean.setTotal(articleMapper.selectCount(article));
@@ -57,12 +59,12 @@ public class ArticleService {
     public void edit(ArticleBean articleBean) {
         int n = 0;
 
-        //标签
-        createArticleTags(articleBean);
-
         Article article = new Article();
         BeanUtils.copyProperties(articleBean, article);
         if (StringUtils.isEmpty(articleBean.getId())) {
+            if (article.getType() == null) {
+                article.setType(ArticleType.yiyi.name());
+            }
             n = articleMapper.insertSelective(article);
         } else {
             n = articleMapper.updateByPrimaryKeySelective(article);
@@ -71,6 +73,11 @@ public class ArticleService {
         if (n == 0) {
             Throws.throwError(ArticleEditError.ARTICLE_EDIT_ERROR);
         }
+
+        //标签
+        articleBean.setId(article.getId());
+        createArticleTags(articleBean);
+
     }
 
     private void createArticleTags(ArticleBean articleBean) {

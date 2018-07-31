@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import win.hupubao.action.BaseAction;
 import win.hupubao.beans.biz.ArticleBean;
 import win.hupubao.beans.biz.TagBean;
+import win.hupubao.beans.biz.UserBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
@@ -12,6 +13,7 @@ import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
+import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.Article;
 import win.hupubao.domain.Tag;
@@ -82,10 +84,16 @@ public class ArticleAction extends BaseAction {
         try {
             ArticleBean articleBean = getEntity(requestBean, ArticleBean.class);
 
+            if (StringUtils.isBlank(articleBean.getId())) {
+                UserBean userBean = (UserBean)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
+                articleBean.setCreateDate(System.currentTimeMillis());
+                articleBean.setCreator(userBean.getUsername());
+            }
             articleService.edit(articleBean);
 
             responseBean.success();
         } catch (Exception e) {
+            e.printStackTrace();
             responseBean.error(e);
         }
         return responseBean.serialize();

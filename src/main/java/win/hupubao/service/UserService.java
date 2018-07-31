@@ -154,7 +154,9 @@ public class UserService {
                     if (user != null) {
                         loginSuccess = true;
                         user.setPassword(null);
-                        request.getSession().setAttribute(Constants.SESSION_USER_KEY, user);
+                        UserBean userBean = new UserBean();
+                        BeanUtils.copyProperties(user, userBean);
+                        request.getSession().setAttribute(Constants.SESSION_USER_KEY, userBean);
                     }
                 }
             }
