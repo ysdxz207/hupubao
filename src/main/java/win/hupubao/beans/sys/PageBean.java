@@ -20,7 +20,7 @@ public class PageBean<E> extends ResponseBase<PageBean> implements Serializable 
 
     private int pageNum = 1;
     private int pageSize = 10;
-    private int total;
+    private long total;
 
     public PageBean() {
     }
@@ -61,11 +61,11 @@ public class PageBean<E> extends ResponseBase<PageBean> implements Serializable 
         this.pageSize = pageSize;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 }

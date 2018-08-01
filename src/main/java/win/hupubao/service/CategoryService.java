@@ -1,8 +1,10 @@
 package win.hupubao.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import win.hupubao.beans.biz.CategoryBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.domain.Category;
 import win.hupubao.mapper.CategoryMapper;
@@ -15,12 +17,13 @@ public class CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public PageBean<Category> selectCategoryList(Category category,
-                                                 PageBean<Category> pageBean) {
-        PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
-        List<Category> categoryList = categoryMapper.select(category);
+    public PageBean<CategoryBean> selectCategoryList(CategoryBean categoryBeans,
+                                                 PageBean<CategoryBean> pageBean) {
+        Page page = PageHelper.startPage(pageBean.getPageNum(),
+                pageBean.getPageSize(), "name desc");
+        List<CategoryBean> categoryList = categoryMapper.selectList(categoryBeans);
         pageBean.setList(categoryList);
-        pageBean.setTotal(categoryMapper.selectCount(category));
+        pageBean.setTotal(page.getTotal());
         return pageBean;
     }
 }

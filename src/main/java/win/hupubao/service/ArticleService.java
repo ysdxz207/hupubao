@@ -46,7 +46,7 @@ public class ArticleService {
 
         List<ArticleBean> articleList = articleMapper.selectList(articleBean);
         pageBean.setList(articleList);
-        pageBean.setTotal((int) page.getTotal());
+        pageBean.setTotal(page.getTotal());
         return pageBean;
     }
 

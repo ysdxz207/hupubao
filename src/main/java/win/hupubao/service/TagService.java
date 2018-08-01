@@ -23,7 +23,7 @@ public class TagService {
                 pageBean.getPageSize(), "name desc");
         List<Tag> tagList = tagMapper.selectList(tag);
         pageBean.setList(tagList);
-        pageBean.setTotal((int) page.getTotal());
+        pageBean.setTotal(page.getTotal());
         return pageBean;
     }
 }
