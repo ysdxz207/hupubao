@@ -1,6 +1,7 @@
 package win.hupubao.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 import win.hupubao.beans.sys.PageBean;
@@ -8,6 +9,7 @@ import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.errors.ImageError;
+import win.hupubao.core.properties.SpringProperties;
 import win.hupubao.domain.Image;
 import win.hupubao.mapper.ImageMapper;
 
@@ -17,8 +19,11 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @Service
+@EnableAutoConfiguration
 public class ImageService {
 
+    @Autowired
+    private SpringProperties springProperties;
     @Autowired
     private ImageMapper imageMapper;
 
@@ -33,13 +38,14 @@ public class ImageService {
                     "Parameter [name] should not be null.");
         }
 
-        //生成访问链接
-
-
         image.setCreateDate(System.currentTimeMillis());
         if (imageMapper.insertSelective(image) == 0) {
             Throws.throwError(ImageError.IMAGE_UPLOAD_ERROR);
         }
+
+        //生成访问链接
+        image.setUrl(springProperties.getDomain() + "/image/" + image.getId());
+        imageMapper.updateByPrimaryKeySelective(image);
     }
 
     public void delete(String id) {

@@ -2,6 +2,7 @@ package win.hupubao.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
+import tk.mybatis.mapper.code.ORDER;
 import win.hupubao.core.generator.IdGenerator;
 import win.hupubao.utils.CustomDateTimeSerializer;
 

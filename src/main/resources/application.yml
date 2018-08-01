@@ -15,7 +15,6 @@ spring:
   redis:
       database: 0
       host: 127.0.0.1
-      password: 123456
       port: 6379
       timeout:
 
@@ -46,3 +45,23 @@ access:
   origin:
     allow-origins:
     - http://127.0.0.1:8010
+
+--- #dev环境文档
+
+spring:
+  profiles: dev
+
+  redis:
+    password: 123456
+
+  domain: http://127.0.0.1:8888
+...
+--- #prod环境文档
+
+spring:
+  profiles: prod
+  redis:
+    password: 123456
+
+  domain: http://hupubao.win
+...

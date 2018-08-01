@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,7 +20,7 @@ import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.service.UserService;
-import win.hupubao.utils.SpringContextUtils;
+import win.hupubao.utils.ApplicationContextUtils;
 import win.hupubao.utils.mybatis.MyMapper;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,7 +82,7 @@ public class Application {
             //登录及权限
             userService.vilidateAuth(request, response, requestBean);
 
-            Object action = SpringContextUtils.getBean(beanName);
+            Object action = ApplicationContextUtils.getBean(beanName);
 
             Method [] methods = action.getClass().getDeclaredMethods();
             Method method = null;

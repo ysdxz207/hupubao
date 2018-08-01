@@ -9,6 +9,7 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "spring")
 public class SpringProperties {
     private Map<String, String> datasource;
+    private String domain;
 
     public void setDatasource(Map<String, String> datasource) {
         this.datasource = datasource;
@@ -16,5 +17,13 @@ public class SpringProperties {
 
     public Map<String, String> getDatasource() {
         return datasource;
+    }
+
+    public String getDomain() {
+        return domain;
+    }
+
+    public void setDomain(String domain) {
+        this.domain = domain;
     }
 }

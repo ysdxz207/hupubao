@@ -15,10 +15,12 @@ public enum ImageError implements ErrorInfo {
         this.error_msg = error_msg;
     }
 
+    @Override
     public String getErrorCode() {
         return this.error_code;
     }
 
+    @Override
     public String getErrorMsg() {
         return this.error_msg;
     }
