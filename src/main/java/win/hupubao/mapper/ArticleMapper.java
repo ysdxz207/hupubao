@@ -24,4 +24,6 @@ public interface ArticleMapper extends MyMapper<Article> {
                     ))
     })
     ArticleBean selectArticleDetail(@Param("id") String id);
+
+    List<ArticleBean> selectList(ArticleBean articleBean);
 }

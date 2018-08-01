@@ -1,5 +1,6 @@
 package win.hupubao.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,14 @@ public class TagService {
 
     @Autowired
     private TagMapper tagMapper;
-    @Autowired
-    private ArticleTagMapper articleTagMapper;
 
     public PageBean<Tag> selectTagList(Tag tag,
                                        PageBean<Tag> pageBean) {
-        PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
-        List<Tag> tagList = tagMapper.select(tag);
+        Page page = PageHelper.startPage(pageBean.getPageNum(),
+                pageBean.getPageSize(), "name desc");
+        List<Tag> tagList = tagMapper.selectList(tag);
         pageBean.setList(tagList);
-        pageBean.setTotal(tagMapper.selectCount(tag));
+        pageBean.setTotal((int) page.getTotal());
         return pageBean;
     }
 }

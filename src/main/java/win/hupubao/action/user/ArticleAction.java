@@ -41,13 +41,14 @@ public class ArticleAction extends BaseAction {
                            HttpServletResponse response,
                            RequestBean requestBean) {
 
-        PageBean<Article> pageBean = getPageBean(requestBean);
+        PageBean<ArticleBean> pageBean = getPageBean(requestBean);
         try {
-            Article article = getEntity(requestBean, Article.class);
-            pageBean = articleService.selectArticleList(article, pageBean);
+            ArticleBean articleBean = getEntity(requestBean, ArticleBean.class);
+            pageBean = articleService.selectArticleList(articleBean, pageBean);
             pageBean.success();
         } catch (Exception e) {
             pageBean.error(e);
+            LoggerUtils.error("[文章列表异常]", e);
         }
         return pageBean.serialize();
     }

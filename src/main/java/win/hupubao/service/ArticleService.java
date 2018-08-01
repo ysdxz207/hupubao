@@ -1,5 +1,6 @@
 package win.hupubao.service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import win.hupubao.beans.biz.ArticleBean;
-import win.hupubao.beans.biz.ArticleTagBean;
-import win.hupubao.beans.biz.TagBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
@@ -21,7 +20,6 @@ import win.hupubao.mapper.ArticleMapper;
 import win.hupubao.mapper.ArticleTagMapper;
 import win.hupubao.mapper.TagMapper;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -41,13 +39,14 @@ public class ArticleService {
     @Autowired
     private ArticleTagMapper articleTagMapper;
 
-    public PageBean<Article> selectArticleList(Article article,
-                                               PageBean<Article> pageBean) {
-        PageHelper.startPage(pageBean.getPageNum(),
+    public PageBean<ArticleBean> selectArticleList(ArticleBean articleBean,
+                                               PageBean<ArticleBean> pageBean) {
+        Page page = PageHelper.startPage(pageBean.getPageNum(),
                 pageBean.getPageSize(), "create_date desc");
-        List<Article> articleList = articleMapper.select(article);
+
+        List<ArticleBean> articleList = articleMapper.selectList(articleBean);
         pageBean.setList(articleList);
-        pageBean.setTotal(articleMapper.selectCount(article));
+        pageBean.setTotal((int) page.getTotal());
         return pageBean;
     }
 

@@ -15,4 +15,6 @@ public interface TagMapper extends MyMapper<Tag> {
 
     @Select("select * from tag where id in (select tag_id from article_tag where article_id = #{articleId})")
     List<TagBean> selectTagListByArticleId(@Param("articleId") String articleId);
+
+    List<Tag> selectList(Tag tag);
 }
