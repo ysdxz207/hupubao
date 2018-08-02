@@ -10,6 +10,7 @@ import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.errors.ArticleEditError;
+import win.hupubao.core.errors.CategoryEditError;
 import win.hupubao.mapper.CategoryMapper;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class CategoryService {
         }
 
         if (n == 0) {
-            Throws.throwError(ArticleEditError.ARTICLE_EDIT_ERROR);
+            Throws.throwError(CategoryEditError.CATAEGORY_EDIT_ERROR);
         }
 
     }

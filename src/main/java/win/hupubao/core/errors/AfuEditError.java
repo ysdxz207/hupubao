@@ -2,13 +2,13 @@ package win.hupubao.core.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 
-public enum ArticleEditError implements ErrorInfo {
-    ARTICLE_EDIT_ERROR("ARTICLE_EDIT_ERROR", "编辑文章失败");
+public enum AfuEditError implements ErrorInfo {
+    AFU_EDIT_ERROR("AFU_EDIT_ERROR", "编辑阿福失败");
 
     public String error_code;
     public String error_msg;
 
-    private ArticleEditError(String error_code, String error_msg) {
+    private AfuEditError(String error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
     }

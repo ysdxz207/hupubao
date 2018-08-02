@@ -5,50 +5,50 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import win.hupubao.beans.biz.TagBean;
+import win.hupubao.beans.biz.AfuTypeBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.TagEditError;
-import win.hupubao.mapper.TagMapper;
+import win.hupubao.core.errors.AfuTypeEditError;
+import win.hupubao.mapper.AfuTypeMapper;
 
 import java.util.List;
 
 @Service
-public class TagService {
+public class AfuTypeService {
 
     @Autowired
-    private TagMapper tagMapper;
+    private AfuTypeMapper afuTypeMapper;
 
-    public PageBean<TagBean> selectTagList(TagBean tag,
-                                       PageBean<TagBean> pageBean) {
+    public PageBean<AfuTypeBean> selectAfuTypeList(AfuTypeBean afuType,
+                                       PageBean<AfuTypeBean> pageBean) {
         Page page = PageHelper.startPage(pageBean.getPageNum(),
                 pageBean.getPageSize(), "create_time desc");
-        List<TagBean> tagList = tagMapper.selectList(tag);
-        pageBean.setList(tagList);
+        List<AfuTypeBean> afuTypeList = afuTypeMapper.select(afuType);
+        pageBean.setList(afuTypeList);
         pageBean.setTotal(page.getTotal());
         return pageBean;
     }
 
 
     @Transactional(rollbackFor = Exception.class)
-    public void edit(TagBean tagBean) {
+    public void edit(AfuTypeBean afuTypeBean) {
         int n;
 
-        if (StringUtils.isEmpty(tagBean.getId())) {
-            n = tagMapper.insertSelective(tagBean);
+        if (StringUtils.isEmpty(afuTypeBean.getId())) {
+            n = afuTypeMapper.insertSelective(afuTypeBean);
         } else {
-            n = tagMapper.updateByPrimaryKeySelective(tagBean);
+            n = afuTypeMapper.updateByPrimaryKeySelective(afuTypeBean);
         }
 
         if (n == 0) {
-            Throws.throwError(TagEditError.TAG_EDIT_ERROR);
+            Throws.throwError(AfuTypeEditError.AFU_TYPE_EDIT_ERROR);
         }
 
     }
 
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(String id) {
-        tagMapper.deleteByPrimaryKey(id);
+        afuTypeMapper.deleteByPrimaryKey(id);
     }
 }

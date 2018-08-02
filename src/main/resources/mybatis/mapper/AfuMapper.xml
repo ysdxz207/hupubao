@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="win.hupubao.mapper.AfuMapper" >
+
+	<sql id="conditions">
+		<where>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(name)" >
+				and `name` like '%' || #{name, jdbcType=VARCHAR} || '%'
+			</if>
+		</where>
+	</sql>
+
+
+	<select id="selectList"
+			parameterType="win.hupubao.beans.biz.AfuBean"
+			resultType="win.hupubao.beans.biz.AfuBean">
+		select
+			*
+		from afu
+		<include refid="conditions"/>
+	</select>
+</mapper>
