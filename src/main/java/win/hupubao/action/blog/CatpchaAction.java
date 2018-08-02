@@ -1,4 +1,4 @@
-package win.hupubao.action.user;
+package win.hupubao.action.blog;
 
 import org.springframework.stereotype.Component;
 import win.hupubao.action.BaseAction;

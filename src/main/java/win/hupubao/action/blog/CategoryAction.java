@@ -1,4 +1,4 @@
-package win.hupubao.action.user;
+package win.hupubao.action.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
