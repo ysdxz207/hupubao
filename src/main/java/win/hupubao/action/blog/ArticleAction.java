@@ -16,13 +16,10 @@ import win.hupubao.common.utils.StringUtils;
 import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.Article;
-import win.hupubao.domain.Tag;
 import win.hupubao.service.ArticleService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -87,7 +84,7 @@ public class ArticleAction extends BaseAction {
 
             if (StringUtils.isBlank(articleBean.getId())) {
                 UserBean userBean = (UserBean)request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-                articleBean.setCreateDate(System.currentTimeMillis());
+                articleBean.setCreateTime(System.currentTimeMillis());
                 articleBean.setCreator(userBean.getUsername());
             }
             articleService.edit(articleBean);

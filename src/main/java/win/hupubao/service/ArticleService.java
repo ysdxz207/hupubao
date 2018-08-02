@@ -43,7 +43,7 @@ public class ArticleService {
     public PageBean<ArticleBean> selectArticleList(ArticleBean articleBean,
                                                PageBean<ArticleBean> pageBean) {
         Page page = PageHelper.startPage(pageBean.getPageNum(),
-                pageBean.getPageSize(), "create_date desc");
+                pageBean.getPageSize(), "create_time desc");
 
         List<ArticleBean> articleList = articleMapper.selectList(articleBean);
         pageBean.setList(articleList);

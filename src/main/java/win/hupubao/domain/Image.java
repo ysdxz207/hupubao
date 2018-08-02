@@ -2,7 +2,6 @@ package win.hupubao.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
-import tk.mybatis.mapper.code.ORDER;
 import win.hupubao.core.generator.IdGenerator;
 import win.hupubao.utils.CustomDateTimeSerializer;
 
@@ -21,7 +20,7 @@ public class Image implements Serializable {
 	private String base64;
 	private String url;
 	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
-	private Long createDate;
+	private Long createTime;
 
 	public String getId() {
 		return id;
@@ -55,11 +54,11 @@ public class Image implements Serializable {
 		this.url = url;
 	}
 
-	public Long getCreateDate() {
-		return createDate;
+	public Long getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreateDate(Long createDate) {
-		this.createDate = createDate;
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
 	}
 }

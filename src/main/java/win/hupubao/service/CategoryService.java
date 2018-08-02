@@ -30,7 +30,7 @@ public class CategoryService {
     public PageBean<CategoryBean> selectCategoryList(CategoryBean categoryBeans,
                                                  PageBean<CategoryBean> pageBean) {
         Page page = PageHelper.startPage(pageBean.getPageNum(),
-                pageBean.getPageSize(), "name desc");
+                pageBean.getPageSize(), "create_time desc");
         List<CategoryBean> categoryList = categoryMapper.selectList(categoryBeans);
         pageBean.setList(categoryList);
         pageBean.setTotal(page.getTotal());

@@ -36,11 +36,12 @@ public class CategoryAction extends BaseAction {
                        RequestBean requestBean) {
 
         PageBean<CategoryBean> pageBean = getPageBean(requestBean);
+        CategoryBean categoryBean = getEntity(requestBean, CategoryBean.class);
         try {
-            CategoryBean categoryBean = getEntity(requestBean, CategoryBean.class);
             pageBean = categoryService.selectCategoryList(categoryBean, pageBean);
             pageBean.success();
         } catch (Exception e) {
+            LoggerUtils.error("[分类列表]异常", e);
             pageBean.error(e);
         }
         return pageBean.serialize();

@@ -13,11 +13,6 @@ import win.hupubao.core.properties.SpringProperties;
 import win.hupubao.domain.Image;
 import win.hupubao.mapper.ImageMapper;
 
-import javax.imageio.ImageIO;
-import javax.servlet.ServletOutputStream;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-
 @Service
 @EnableAutoConfiguration
 public class ImageService {
@@ -38,7 +33,7 @@ public class ImageService {
                     "Parameter [name] should not be null.");
         }
 
-        image.setCreateDate(System.currentTimeMillis());
+        image.setCreateTime(System.currentTimeMillis());
         if (imageMapper.insertSelective(image) == 0) {
             Throws.throwError(ImageError.IMAGE_UPLOAD_ERROR);
         }

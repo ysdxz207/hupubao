@@ -21,7 +21,7 @@ public class Article implements Serializable {
 	private String context;
 	private String categoryId;
 	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
-	private Long createDate;
+	private Long createTime;
 	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
 	private Long lastUpdateDate;
 	private String type;
@@ -67,12 +67,12 @@ public class Article implements Serializable {
 		this.categoryId = categoryId;
 	}
 
-	public Long getCreateDate() {
-		return createDate;
+	public Long getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreateDate(Long createDate) {
-		this.createDate = createDate;
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
 	}
 
 	public Long getLastUpdateDate() {
