@@ -15,7 +15,7 @@ import win.hupubao.beans.sys.ResponseBean;
 public class BaseAction {
 
     protected <T> T getEntity(RequestBean requestBean,
-                              Class<T> clazz) throws Exception{
+                              Class<T> clazz) {
         return JSON.toJavaObject(JSON.parseObject(requestBean.getBizContent()), clazz);
     }
 

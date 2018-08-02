@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import win.hupubao.beans.biz.ArticleBean;
+import win.hupubao.beans.biz.TagBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
@@ -101,18 +102,18 @@ public class ArticleService {
             if (StringUtils.isEmpty(tagName)) {
                 continue;
             }
-            Tag tag = new Tag();
-            tag.setName(tagName);
-            Tag tagDB = tagMapper.selectOne(tag);
+            TagBean tagBean = new TagBean();
+            tagBean.setName(tagName);
+            Tag tagDB = tagMapper.selectOne(tagBean);
             if (tagDB == null) {
-                tagMapper.insertSelective(tag);
+                tagMapper.insertSelective(tagBean);
             } else {
-                BeanUtils.copyProperties(tagDB, tag);
+                BeanUtils.copyProperties(tagDB, tagBean);
             }
 
             ArticleTag articleTag = new ArticleTag();
             articleTag.setArticleId(articleBean.getId());
-            articleTag.setTagId(tag.getId());
+            articleTag.setTagId(tagBean.getId());
             articleTagMapper.insertSelective(articleTag);
         }
     }
