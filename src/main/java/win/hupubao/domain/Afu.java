@@ -1,9 +1,12 @@
 package win.hupubao.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import tk.mybatis.mapper.annotation.KeySql;
+import win.hupubao.core.generator.IdGenerator;
 import win.hupubao.utils.CustomDateTimeSerializer;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Transient;
 import java.io.Serializable;
 
@@ -11,6 +14,8 @@ import java.io.Serializable;
 public class Afu implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@KeySql(genId = IdGenerator.class)
 	private String id;
 	private String name;
 	private String type;

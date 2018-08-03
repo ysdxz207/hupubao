@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import win.hupubao.action.BaseAction;
 import win.hupubao.beans.biz.AfuBean;
+import win.hupubao.beans.biz.TagBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
@@ -12,10 +13,12 @@ import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.annotation.ServiceInfo;
+import win.hupubao.domain.Afu;
 import win.hupubao.service.AfuService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.stream.Collectors;
 
 /**
  * @author W.feihong
@@ -59,6 +62,23 @@ public class AfuAction extends BaseAction {
         } catch (Exception e) {
             e.printStackTrace();
             responseBean.error(e);
+        }
+        return responseBean.serialize();
+    }
+
+    @ServiceInfo(value = "detail", permissions = {"afu:view"})
+    public String detail(HttpServletRequest request,
+                         HttpServletResponse response,
+                         RequestBean requestBean) {
+
+        ResponseBean responseBean = createResponseBean(requestBean);
+        try {
+            Afu afu = getEntity(requestBean, Afu.class);
+            AfuBean afuBean = afuService.detail(afu.getId());
+            responseBean.success(afuBean);
+        } catch (Exception e) {
+            responseBean.error(e);
+            LoggerUtils.error(e);
         }
         return responseBean.serialize();
     }

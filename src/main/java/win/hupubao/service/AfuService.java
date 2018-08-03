@@ -52,4 +52,9 @@ public class AfuService {
     public void deleteById(String id) {
         afuMapper.deleteByPrimaryKey(id);
     }
+
+    public AfuBean detail(String id) {
+
+        return afuMapper.selectByPrimaryKey(id);
+    }
 }
