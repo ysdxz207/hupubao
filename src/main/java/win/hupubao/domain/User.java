@@ -1,7 +1,9 @@
 package win.hupubao.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
 import win.hupubao.core.generator.IdGenerator;
+import win.hupubao.utils.CustomDateTimeSerializer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,7 +25,9 @@ public class User implements Serializable {
 	private String username;
 	private String nickname;
 	private String password;
+	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
 	private Long createTime;
+	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
 	private Long lastLoginTime;
 	private Integer status;
 

@@ -9,9 +9,11 @@ import win.hupubao.beans.biz.AfuTypeBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
+import win.hupubao.common.utils.rsa.RSA;
 import win.hupubao.core.errors.AfuTypeEditError;
 import win.hupubao.mapper.AfuTypeMapper;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Service
@@ -36,6 +38,15 @@ public class AfuTypeService {
         int n;
 
         if (StringUtils.isEmpty(afuTypeBean.getId())) {
+            try {
+                RSA.RSAKey rsaKey = RSA.getInstance().generateRSAKey();
+                afuTypeBean.setPrivateKey(rsaKey.getPrivateKey());
+                afuTypeBean.setPublicKey(rsaKey.getPublicKey());
+            } catch (NoSuchAlgorithmException e) {
+
+                Throws.throwError("生成私钥公钥失败");
+            }
+
             n = afuTypeMapper.insertSelective(afuTypeBean);
         } else {
             n = afuTypeMapper.updateByPrimaryKeySelective(afuTypeBean);
@@ -50,5 +61,9 @@ public class AfuTypeService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteById(String id) {
         afuTypeMapper.deleteByPrimaryKey(id);
+    }
+
+    public AfuTypeBean selectByPrimaryKey(String id) {
+        return afuTypeMapper.selectByPrimaryKey(id);
     }
 }

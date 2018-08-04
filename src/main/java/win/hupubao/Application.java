@@ -67,14 +67,13 @@ public class Application {
                 params = JSON.parseObject(jsonString);
             }
 
-            String[] services = null;
             String beanName = null;
             String methodName = null;
             try {
                 requestBean = JSON.toJavaObject(params, RequestBean.class);
-                services = requestBean.getService().split("\\.");
-                beanName = services[0].toLowerCase();
-                methodName = services[1];
+                int index = requestBean.getService().lastIndexOf(".");
+                beanName = requestBean.getService().substring(0, index).toLowerCase();
+                methodName = requestBean.getService().substring(index + 1).toLowerCase();
             } catch (Exception e) {
                 Throws.throwError(SystemError.PARAMETER_ERROR);
             }

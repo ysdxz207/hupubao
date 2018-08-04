@@ -61,6 +61,29 @@ public class AfuTypeAction extends BaseAction {
         return responseBean.serialize();
     }
 
+    @ServiceInfo(value = "detail", permissions = {"afuType:view"})
+    public String detail(HttpServletRequest request,
+                       HttpServletResponse response,
+                       RequestBean requestBean) {
+
+        ResponseBean responseBean = createResponseBean(requestBean);
+        try {
+            AfuTypeBean afuTypeBean = getEntity(requestBean, AfuTypeBean.class);
+
+
+            if (StringUtils.isBlank(afuTypeBean.getId())) {
+                Throws.throwError(SystemError.PARAMETER_ERROR);
+            }
+
+
+            responseBean.success(afuTypeService.selectByPrimaryKey(afuTypeBean.getId()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            responseBean.error(e);
+        }
+        return responseBean.serialize();
+    }
+
     @ServiceInfo(value = "delete", permissions = {"afuType:edit"})
     public String delete(HttpServletRequest request,
                          HttpServletResponse response,
