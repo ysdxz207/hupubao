@@ -97,7 +97,7 @@ public class ArticleAction extends BaseAction {
         return responseBean.serialize();
     }
 
-    @ServiceInfo(value = "delete", permissions = {"article:edit"})
+    @ServiceInfo(value = "delete", permissions = {"article:delete"})
     public String delete(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {

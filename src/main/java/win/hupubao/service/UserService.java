@@ -1,13 +1,20 @@
 package win.hupubao.service;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 import win.hupubao.beans.biz.UserBean;
+import win.hupubao.beans.biz.UserRoleBean;
+import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
+import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.DesUtils;
 import win.hupubao.common.utils.ListUtils;
@@ -15,12 +22,14 @@ import win.hupubao.common.utils.Md5Utils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.Logical;
-import win.hupubao.core.properties.AuthProperties;
 import win.hupubao.core.errors.LoginError;
+import win.hupubao.core.errors.UserEditError;
+import win.hupubao.core.properties.AuthProperties;
 import win.hupubao.domain.User;
 import win.hupubao.domain.UserSecurity;
 import win.hupubao.mapper.PermissionMapper;
 import win.hupubao.mapper.UserMapper;
+import win.hupubao.mapper.UserRoleMapper;
 import win.hupubao.mapper.UserSecurityMapper;
 import win.hupubao.utils.CookieUtils;
 
@@ -47,6 +56,8 @@ public class UserService {
     private UserSecurityMapper userSecurityMapper;
     @Autowired
     private PermissionMapper permissionMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
 
     public UserBean login(UserBean userBean) {
 
@@ -217,5 +228,56 @@ public class UserService {
         }
 
         return ListUtils.containsAny(permissionList, Arrays.asList(permissions));
+    }
+
+    public PageBean<UserBean> selectUserList(UserBean userBean, PageBean<UserBean> pageBean) {
+        Page page = PageHelper.startPage(pageBean.getPageNum(),
+                pageBean.getPageSize(), "create_time desc");
+        List<UserBean> userList = userMapper.selectList(userBean);
+        pageBean.setList(userList);
+        pageBean.setTotal(page.getTotal());
+        return pageBean;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void edit(UserBean userBean) {
+        int n;
+
+        if (StringUtils.isBlank(userBean.getRoleId())) {
+            Throws.throwError(SystemError.PARAMETER_ERROR, "Parameter [roleId] should not be null.");
+        }
+
+        if (StringUtils.isEmpty(userBean.getId())) {
+            if (StringUtils.isBlank(userBean.getPassword())) {
+                userBean.setPassword("hupubao");
+            }
+            userBean.setPassword(Md5Utils.md5(userBean.getPassword() + Constants.PASSWORD_MD5_SALT));
+            n = userMapper.insertSelective(userBean);
+        } else {
+            if (StringUtils.isBlank(userBean.getPassword())) {
+                userBean.setPassword(null);
+            }
+            n = userMapper.updateByPrimaryKeySelective(userBean);
+        }
+
+        //角色
+        Example exampleUserRole = new Example(UserRoleBean.class);
+        Example.Criteria criteriaUserRole = exampleUserRole.createCriteria();
+        criteriaUserRole.andEqualTo("userId", userBean.getId());
+        userRoleMapper.deleteByExample(exampleUserRole);
+        UserRoleBean userRoleBean = new UserRoleBean();
+        userRoleBean.setUserId(userBean.getId());
+        userRoleBean.setRoleId(userBean.getRoleId());
+
+        userRoleMapper.insertSelective(userRoleBean);
+
+        if (n == 0) {
+            Throws.throwError(UserEditError.USER_EDIT_ERROR);
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteById(String id) {
+        userMapper.deleteByPrimaryKey(id);
     }
 }

@@ -2,8 +2,10 @@ package win.hupubao.beans.biz;
 
 import win.hupubao.domain.User;
 
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
+@Table(name = "user")
 public class UserBean extends User {
 
     private static final long serialVersionUID = -8798234879062043993L;

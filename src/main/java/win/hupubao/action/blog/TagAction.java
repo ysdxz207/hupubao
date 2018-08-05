@@ -67,7 +67,7 @@ public class TagAction extends BaseAction {
         return responseBean.serialize();
     }
 
-    @ServiceInfo(value = "delete", permissions = {"tag:edit"})
+    @ServiceInfo(value = "delete", permissions = {"tag:delete"})
     public String delete(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {

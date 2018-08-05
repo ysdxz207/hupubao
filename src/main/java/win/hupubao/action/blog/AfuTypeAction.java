@@ -84,7 +84,7 @@ public class AfuTypeAction extends BaseAction {
         return responseBean.serialize();
     }
 
-    @ServiceInfo(value = "delete", permissions = {"afuType:edit"})
+    @ServiceInfo(value = "delete", permissions = {"afuType:delete"})
     public String delete(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {
