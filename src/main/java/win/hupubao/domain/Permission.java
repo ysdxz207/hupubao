@@ -1,7 +1,9 @@
 package win.hupubao.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
 import win.hupubao.core.generator.IdGenerator;
+import win.hupubao.utils.CustomDateTimeSerializer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +19,8 @@ public class Permission implements Serializable {
 	private String menuId;
 	private String permissionName;
 	private String permission;
-
+	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
+	private Long createTime;
 
 	public String getId (){
 		return id;
@@ -49,5 +52,13 @@ public class Permission implements Serializable {
 
 	public void setPermission (String permission){
 		this.permission = permission;
+	}
+
+	public Long getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Long createTime) {
+		this.createTime = createTime;
 	}
 }

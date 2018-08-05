@@ -19,34 +19,31 @@ public class MenuService {
     @Autowired
     private MenuMapper menuMapper;
 
-    public PageBean<Menu> selectMenuList(Menu menu,
-                                     PageBean<Menu> pageBean) {
+    public PageBean<MenuBean> selectMenuList(MenuBean menuBean,
+                                     PageBean<MenuBean> pageBean) {
         PageHelper.startPage(pageBean.getPageNum(), pageBean.getPageSize());
-        List<Menu> menuList = menuMapper.select(menu);
+        List<MenuBean> menuList = menuMapper.select(menuBean);
         pageBean.setList(menuList);
-        pageBean.setTotal(menuMapper.selectCount(menu));
+        pageBean.setTotal(menuMapper.selectCount(menuBean));
         return pageBean;
     }
 
     public List<MenuBean> selectMenuNav(String pid,
                                         String type) {
-        Menu menu = new Menu();
+        MenuBean menuBean = new MenuBean();
 
-        menu.setPid(pid);
-        menu.setType(type);
-        List<Menu> menuList = menuMapper.select(menu);
-        List<MenuBean> navList = new ArrayList<>();
+        menuBean.setPid(pid);
+        if (!"all".equalsIgnoreCase(type)) {
+            menuBean.setType(type);
+        }
+        List<MenuBean> navList = menuMapper.select(menuBean);
 
-        for (Menu menuParent : menuList) {
-            MenuBean parent = new MenuBean();
-            BeanUtils.copyProperties(menuParent, parent);
+        for (MenuBean menuParent : navList) {
             List<MenuBean> children = selectMenuNav(menuParent.getId(),
                     menuParent.getType());
             if (children.size() > 0) {
-                parent.setChildren(children);
+                menuParent.setChildren(children);
             }
-
-            navList.add(parent);
         }
         return navList;
     }

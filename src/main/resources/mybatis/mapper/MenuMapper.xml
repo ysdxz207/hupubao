@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="win.hupubao.mapper.MenuMapper" >
+
+	<sql id="conditions">
+		<where>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(menuName)" >
+				and menuName like '%' || #{menuName, jdbcType=VARCHAR} || '%'
+			</if>
+		</where>
+	</sql>
+
+
+	<select id="selectList"
+			parameterType="win.hupubao.beans.biz.MenuBean"
+			resultType="win.hupubao.beans.biz.MenuBean">
+		select
+		*
+		from menu
+		<include refid="conditions"/>
+	</select>
+
+</mapper>

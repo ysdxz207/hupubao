@@ -39,6 +39,10 @@ public class RoleService {
         if (StringUtils.isEmpty(roleBean.getId())) {
             n = roleMapper.insertSelective(roleBean);
         } else {
+            if ("1".equals(roleBean.getId())) {
+                Throws.throwError(SystemError.SYSTEM_BISINESS_ERROR,
+                        "不可编辑[大当家]角色");
+            }
             n = roleMapper.updateByPrimaryKeySelective(roleBean);
         }
 

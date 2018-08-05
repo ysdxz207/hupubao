@@ -10,6 +10,7 @@ import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.beans.ResponseBase;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
+import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.Menu;
@@ -51,10 +52,10 @@ public class MenuAction extends BaseAction {
                               HttpServletResponse response,
                               RequestBean requestBean) {
 
-        PageBean<Menu> pageBean = getPageBean(requestBean);
+        PageBean<MenuBean> pageBean = getPageBean(requestBean);
         try {
-            Menu menu = getEntity(requestBean, Menu.class);
-            pageBean = menuService.selectMenuList(menu, pageBean);
+            MenuBean menuBean = getEntity(requestBean, MenuBean.class);
+            pageBean = menuService.selectMenuList(menuBean, pageBean);
             pageBean.success();
         } catch (Exception e) {
             pageBean.error(e);
@@ -77,6 +78,7 @@ public class MenuAction extends BaseAction {
             List<MenuBean> menuList = menuService.selectMenuNav("root", menuBean.getType());
             responseBean.success(menuList);
         } catch (Exception e) {
+            LoggerUtils.error("[侧边菜单列表异常]", e);
             responseBean.error(e);
         }
         return responseBean.serialize();

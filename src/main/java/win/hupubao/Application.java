@@ -73,7 +73,7 @@ public class Application {
                 requestBean = JSON.toJavaObject(params, RequestBean.class);
                 int index = requestBean.getService().lastIndexOf(".");
                 beanName = requestBean.getService().substring(0, index).toLowerCase();
-                methodName = requestBean.getService().substring(index + 1).toLowerCase();
+                methodName = requestBean.getService().substring(index + 1);
             } catch (Exception e) {
                 Throws.throwError(SystemError.PARAMETER_ERROR);
             }
