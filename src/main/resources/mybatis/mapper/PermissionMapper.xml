@@ -58,5 +58,15 @@
 
 
 
+		select
+			p.*,
+			m.id as menuid,
+			m.pid as mPid,
+			m.menu_name as menuName
+
+		from permission p
+			left join menu m on p.menu_id = m.id
+
+
 	</select>
 </mapper>
