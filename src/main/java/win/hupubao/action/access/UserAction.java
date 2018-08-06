@@ -69,7 +69,7 @@ public class UserAction extends BaseAction {
         try {
             User user = getEntity(requestBean, User.class);
             if (StringUtils.isEmpty(user.getId())) {
-                Throws.throwError(SystemError.PARAMETER_ERROR, "Parameter [id] should not be null.");
+                Throws.throwError(SystemError.PARAMETER_ERROR, "Argument [id] should not be null.");
             }
             user = userService.selectOne(user);
             if (user != null) {

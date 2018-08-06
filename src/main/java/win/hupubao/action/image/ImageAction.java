@@ -69,7 +69,7 @@ public class ImageAction extends BaseAction {
         try {
             Image image = getEntity(requestBean, Image.class);
             if (image.getId() == null) {
-                Throws.throwError("Parameter [id] should not be null.");
+                Throws.throwError("Argument [id] should not be null.");
             }
             imageService.delete(image.getId());
             responseBean.success();

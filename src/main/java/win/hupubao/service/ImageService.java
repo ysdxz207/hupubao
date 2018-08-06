@@ -25,12 +25,12 @@ public class ImageService {
     public void upload(Image image) {
         if (StringUtils.isBlank(image.getBase64())) {
             Throws.throwError(SystemError.PARAMETER_ERROR,
-                    "Parameter [base64] should not be null.");
+                    "Argument [base64] should not be null.");
         }
 
         if (StringUtils.isBlank(image.getName())) {
             Throws.throwError(SystemError.PARAMETER_ERROR,
-                    "Parameter [name] should not be null.");
+                    "Argument [name] should not be null.");
         }
 
         image.setCreateTime(System.currentTimeMillis());

@@ -244,7 +244,7 @@ public class UserService {
         int n;
 
         if (StringUtils.isBlank(userBean.getRoleId())) {
-            Throws.throwError(SystemError.PARAMETER_ERROR, "Parameter [roleId] should not be null.");
+            Throws.throwError(SystemError.PARAMETER_ERROR, "Argument [roleId] should not be null.");
         }
 
         if (StringUtils.isEmpty(userBean.getId())) {

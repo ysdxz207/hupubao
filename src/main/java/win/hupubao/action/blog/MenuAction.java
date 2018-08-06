@@ -73,7 +73,7 @@ public class MenuAction extends BaseAction {
             MenuBean menuBean = getEntity(requestBean, MenuBean.class);
 
             if (StringUtils.isEmpty(menuBean.getType())) {
-                Throws.throwError(SystemError.PARAMETER_ERROR, "Parameter [type] should not be null.");
+                Throws.throwError(SystemError.PARAMETER_ERROR, "Argument [type] should not be null.");
             }
             List<MenuBean> menuList = menuService.selectMenuNav("root", menuBean.getType());
             responseBean.success(menuList);
