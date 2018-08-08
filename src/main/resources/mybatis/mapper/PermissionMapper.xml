@@ -10,6 +10,31 @@
 		</where>
 	</sql>
 
+	<sql id="conditionsValidatePermissions">
+		<where>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(roleId)" >
+				LEFT JOIN role_permission mrp
+				ON mp.id = mrp.permission_id
+				WHERE mrp.role_id = #{roleId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+	
+	<resultMap id="permissionBeanMap" type="win.hupubao.beans.biz.PermissionBean">
+		<id property="id" column="id"/>
+		<result property="menuId" column="menu_id"/>
+		<result property="permissionName" column="permission_name"/>
+		<result property="permission" column="permission"/>
+		<result property="createTime" column="create_time"/>
+		<result property="checked" column="checked" />
+	</resultMap>
+	
+	<resultMap id="permissionAll" type="win.hupubao.beans.biz.PermissionBean">
+		<id property="id" column="menu_id"/>
+		<result property="permissionName" column="menu_name" />
+		<collection property="children" javaType="java.util.List" resultMap="permissionBeanMap"/>
+	</resultMap>
+
 
 	<select id="selectList"
 			parameterType="win.hupubao.beans.biz.PermissionBean"
@@ -22,51 +47,22 @@
 
 	<select id="selectValidatePermissionList"
 			parameterType="java.lang.String"
-			resultType="win.hupubao.beans.biz.PermissionBean">
-		SELECT *
-		FROM (
-				 SELECT
-					 id  AS id,
-					 menu_name,
-					 NULL        AS permission,
-					 pid AS pid,
-					 0           AS is_checked
-				 FROM menu
-				 WHERE `status` = 1
-				 UNION
-				 SELECT
-					 id,
-					 permission_name,
-					 permission,
-					 menu_id AS pid,
-					 CASE WHEN (id IN (
-
-						 SELECT permission_id
-						 FROM
-							 permission mp
-							 LEFT JOIN role_permission mrp
-								 ON mp.id = mrp.permission_id
-						 WHERE mrp.role_id =  #{roleId, jdbcType=VARCHAR}
-					 ))
-						 THEN 'true'
-					 ELSE 'false' END    AS is_checked
-				 FROM permission
-
-				 ORDER BY id
-				 ASC
-			 ) t;
-
-
+			resultMap="permissionAll">
 
 		select
 			p.*,
-			m.id as menuid,
-			m.pid as mPid,
-			m.menu_name as menuName
+			m.menu_name as menu_name,
+			CASE WHEN (p.id in (
 
-		from permission p
-			left join menu m on p.menu_id = m.id
-
+				SELECT mp.id
+				FROM
+					permission mp
+				<include refid="conditionsValidatePermissions"/>
+			))
+				THEN 1
+			ELSE 0 END  AS checked
+		FROM permission p
+			left join menu m on p.menu_id = m.id;
 
 	</select>
 </mapper>
