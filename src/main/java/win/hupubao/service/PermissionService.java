@@ -20,8 +20,8 @@ public class PermissionService {
     @Autowired
     private PermissionMapper permissionMapper;
 
-    public PageBean<PermissionBean> selectPermissionList(PermissionBean permission,
-                                       PageBean<PermissionBean> pageBean) {
+    public PageBean<PermissionBean> list(PermissionBean permission,
+                                         PageBean<PermissionBean> pageBean) {
         Page page = PageHelper.startPage(pageBean.getPageNum(),
                 pageBean.getPageSize(), "create_time desc");
         List<PermissionBean> permissionList = permissionMapper.selectList(permission);
@@ -52,7 +52,11 @@ public class PermissionService {
         permissionMapper.deleteByPrimaryKey(id);
     }
 
+    public List<PermissionBean> selectPermissionTree() {
+        return permissionMapper.selectPermissionTree();
+    }
+
     public List<PermissionBean> selectRolePermissionList(String roleId) {
-        return permissionMapper.selectValidatePermissionList(roleId);
+        return permissionMapper.selectRolePermissionList(roleId);
     }
 }

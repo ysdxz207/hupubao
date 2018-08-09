@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import win.hupubao.beans.biz.PermissionBean;
 import win.hupubao.beans.biz.UserBean;
 import win.hupubao.beans.biz.UserRoleBean;
 import win.hupubao.beans.sys.PageBean;
@@ -25,6 +26,7 @@ import win.hupubao.core.annotation.Logical;
 import win.hupubao.core.errors.LoginError;
 import win.hupubao.core.errors.UserEditError;
 import win.hupubao.core.properties.AuthProperties;
+import win.hupubao.domain.Permission;
 import win.hupubao.domain.User;
 import win.hupubao.domain.UserSecurity;
 import win.hupubao.mapper.PermissionMapper;
@@ -37,6 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author W.feihong
@@ -220,14 +223,15 @@ public class UserService {
             return true;
         }
 
-        List<String> permissionList = permissionMapper.selectRolePermissionList(userBean.getRoleId());
-
+        List<PermissionBean> permissionList = permissionMapper.selectRolePermissionList(userBean.getRoleId());
+        List<String> rolePermissions = permissionList.stream().map(Permission::getPermission)
+                .collect(Collectors.toList());
         if (Logical.AND.equals(logical)) {
 
-            return permissionList.containsAll(Arrays.asList(permissions));
+            return rolePermissions.containsAll(Arrays.asList(permissions));
         }
 
-        return ListUtils.containsAny(permissionList, Arrays.asList(permissions));
+        return ListUtils.containsAny(rolePermissions, Arrays.asList(permissions));
     }
 
     public PageBean<UserBean> selectUserList(UserBean userBean, PageBean<UserBean> pageBean) {

@@ -2,6 +2,7 @@ package win.hupubao.action.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.sqlite.SQLiteException;
 import win.hupubao.action.BaseAction;
 import win.hupubao.beans.biz.PermissionBean;
 import win.hupubao.beans.biz.RoleBean;
@@ -15,12 +16,16 @@ import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
+import win.hupubao.domain.Permission;
 import win.hupubao.service.PermissionService;
 import win.hupubao.service.RoleService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author W.feihong
@@ -94,18 +99,26 @@ public class RoleAction extends BaseAction {
         return responseBean.serialize();
     }
 
-    @ServiceInfo(value = "permissionList", permissions = {"permission:view"})
-    public String rolePermissionList(HttpServletRequest request,
-                                         HttpServletResponse response,
-                                         RequestBean requestBean) {
+
+
+    @ServiceInfo(value = "permissions", permissions = {"permission:view"})
+    public String permissions(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 RequestBean requestBean) {
 
         ResponseBean responseBean = createResponseBean(requestBean);
         try {
-            UserBean userBean = (UserBean) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-            List<PermissionBean> list = permissionService.selectRolePermissionList(userBean.getRoleId());
-            responseBean.success(list);
+            UserBean userBean = requestBean.toEntity(UserBean.class);
+
+            if (StringUtils.isBlank(userBean.getRoleId())) {
+                Throws.throwError(SystemError.PARAMETER_ERROR,
+                        "Argument [roleId] should not be null.");
+            }
+
+            List<PermissionBean> permissionList = permissionService.selectRolePermissionList(userBean.getRoleId());
+            responseBean.success(permissionList.stream().map(Permission::getId).toArray());
         } catch (Exception e) {
-            LoggerUtils.error("[获取角色权限列表异常]", e);
+            LoggerUtils.error("[获取角色权限异常]", e);
             responseBean.error(e);
         }
         return responseBean.serialize();

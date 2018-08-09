@@ -12,13 +12,16 @@ import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
+import win.hupubao.domain.Permission;
 import win.hupubao.service.PermissionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author W.feihong
@@ -39,7 +42,7 @@ public class PermissionAction extends BaseAction {
         PageBean<PermissionBean> pageBean = getPageBean(requestBean);
         try {
             PermissionBean permissionBean = getEntity(requestBean, PermissionBean.class);
-            pageBean = permissionService.selectPermissionList(permissionBean, pageBean);
+            pageBean = permissionService.list(permissionBean, pageBean);
             pageBean.success();
         } catch (Exception e) {
             LoggerUtils.error("[权限列表异常]", e);
@@ -84,6 +87,22 @@ public class PermissionAction extends BaseAction {
             responseBean.success();
         } catch (Exception e) {
             LoggerUtils.error("[删除权限异常][{}]", permissionBean.getId(), e);
+            responseBean.error(e);
+        }
+        return responseBean.serialize();
+    }
+
+    @ServiceInfo(value = "tree", permissions = {"permission:edit"})
+    public String tree(HttpServletRequest request,
+                                 HttpServletResponse response,
+                                 RequestBean requestBean) {
+
+        ResponseBean responseBean = createResponseBean(requestBean);
+        try {
+            List<PermissionBean> list = permissionService.selectPermissionTree();
+            responseBean.success(list);
+        } catch (Exception e) {
+            LoggerUtils.error("[获取权限树异常]", e);
             responseBean.error(e);
         }
         return responseBean.serialize();

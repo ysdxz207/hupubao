@@ -10,16 +10,6 @@
 		</where>
 	</sql>
 
-	<sql id="conditionsRolePermissionList">
-		<where>
-			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(roleId)" >
-				LEFT JOIN role_permission mrp
-				ON mp.id = mrp.permission_id
-				WHERE mrp.role_id = #{roleId, jdbcType=VARCHAR}
-			</if>
-		</where>
-	</sql>
-	
 	<resultMap id="permissionBeanMap" type="win.hupubao.beans.biz.PermissionBean">
 		<id property="id" column="id"/>
 		<result property="menuId" column="menu_id"/>
@@ -45,24 +35,29 @@
 		<include refid="conditions"/>
 	</select>
 
-	<select id="selectRolePermissionList"
-			parameterType="java.lang.String"
+	<select id="selectPermissionTree"
 			resultMap="rolePermissionMap">
 
 		select
 			p.*,
-			m.menu_name as menu_name,
-			CASE WHEN (p.id in (
+			m.menu_name as menu_name
+		from permission p
+			left join role_permission rp on p.id = rp.permission_id
+			left join menu m on p.menu_id = m.id
+	</select>
 
-				SELECT mp.id
-				FROM
-					permission mp
-				<include refid="conditionsRolePermissionList"/>
-			))
-				THEN 1
-			ELSE 0 END  AS checked
-		FROM permission p
-			left join menu m on p.menu_id = m.id;
-
+	<select id="selectRolePermissionList"
+			parameterType="java.lang.String"
+			resultType="win.hupubao.beans.biz.PermissionBean">
+		select
+			p.*
+		from permission p
+			left join role_permission rp on p.id = rp.permission_id
+			left join menu m on p.menu_id = m.id
+		<where>
+			<if test="roleId != 1">
+				and rp.role_id = #{roleId, jdbcType=VARCHAR}
+			</if>
+		</where>
 	</select>
 </mapper>

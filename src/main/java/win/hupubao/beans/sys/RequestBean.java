@@ -1,5 +1,7 @@
 package win.hupubao.beans.sys;
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.Serializable;
 /**
  *
@@ -27,5 +29,9 @@ public class RequestBean implements Serializable {
 
     public void setBizContent(String bizContent) {
         this.bizContent = bizContent;
+    }
+
+    public <T> T toEntity(Class<T> clazz) {
+        return JSON.toJavaObject(JSON.parseObject(this.bizContent), clazz);
     }
 }
