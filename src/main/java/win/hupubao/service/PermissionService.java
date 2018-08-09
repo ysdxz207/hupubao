@@ -52,7 +52,7 @@ public class PermissionService {
         permissionMapper.deleteByPrimaryKey(id);
     }
 
-    public List<PermissionBean> selectValidatePermissionList(String roleId) {
+    public List<PermissionBean> selectRolePermissionList(String roleId) {
         return permissionMapper.selectValidatePermissionList(roleId);
     }
 }

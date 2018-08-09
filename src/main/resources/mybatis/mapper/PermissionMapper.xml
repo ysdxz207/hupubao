@@ -10,7 +10,7 @@
 		</where>
 	</sql>
 
-	<sql id="conditionsValidatePermissions">
+	<sql id="conditionsRolePermissionList">
 		<where>
 			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(roleId)" >
 				LEFT JOIN role_permission mrp
@@ -29,7 +29,7 @@
 		<result property="checked" column="checked" />
 	</resultMap>
 	
-	<resultMap id="permissionAll" type="win.hupubao.beans.biz.PermissionBean">
+	<resultMap id="rolePermissionMap" type="win.hupubao.beans.biz.PermissionBean">
 		<id property="id" column="menu_id"/>
 		<result property="permissionName" column="menu_name" />
 		<collection property="children" javaType="java.util.List" resultMap="permissionBeanMap"/>
@@ -45,9 +45,9 @@
 		<include refid="conditions"/>
 	</select>
 
-	<select id="selectValidatePermissionList"
+	<select id="selectRolePermissionList"
 			parameterType="java.lang.String"
-			resultMap="permissionAll">
+			resultMap="rolePermissionMap">
 
 		select
 			p.*,
@@ -57,7 +57,7 @@
 				SELECT mp.id
 				FROM
 					permission mp
-				<include refid="conditionsValidatePermissions"/>
+				<include refid="conditionsRolePermissionList"/>
 			))
 				THEN 1
 			ELSE 0 END  AS checked

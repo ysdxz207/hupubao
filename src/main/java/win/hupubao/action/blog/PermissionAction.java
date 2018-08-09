@@ -89,20 +89,4 @@ public class PermissionAction extends BaseAction {
         return responseBean.serialize();
     }
 
-    @ServiceInfo(value = "validateList", permissions = {"permission:view"})
-    public String validatePermissionList(HttpServletRequest request,
-                              HttpServletResponse response,
-                              RequestBean requestBean) {
-
-        ResponseBean responseBean = createResponseBean(requestBean);
-        try {
-            UserBean userBean = (UserBean) request.getSession().getAttribute(Constants.SESSION_USER_KEY);
-            List<PermissionBean> list = permissionService.selectValidatePermissionList(userBean.getRoleId());
-            responseBean.success(list);
-        } catch (Exception e) {
-            LoggerUtils.error("[有效权限列表异常]", e);
-            responseBean.error(e);
-        }
-        return responseBean.serialize();
-    }
 }
