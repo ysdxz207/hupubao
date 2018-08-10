@@ -43,6 +43,7 @@ public class RoleService {
 
     @Transactional(rollbackFor = Exception.class)
     public void edit(RoleBean roleBean) {
+
         int n;
 
         if (StringUtils.isEmpty(roleBean.getId())) {
@@ -53,27 +54,28 @@ public class RoleService {
                         "不可编辑[大当家]角色");
             }
 
-            //权限
-            //先删除权限
-            Example examplePermission = new Example(RolePermissionBean.class);
-            Example.Criteria criteria = examplePermission.createCriteria();
-            criteria.andEqualTo("roleId", roleBean.getId());
-            permissionMapper.deleteByExample(examplePermission);
-            //添加权限
-            List<RolePermissionBean> permissionList = new ArrayList<>();
-            for (String permissionId : roleBean.getPermissions()) {
-                RolePermissionBean rolePermissionBean = new RolePermissionBean();
-                rolePermissionBean.setRoleId(roleBean.getId());
-                rolePermissionBean.setPermissionId(permissionId);
-                permissionList.add(rolePermissionBean);
-            }
-            rolePermissionMapper.insertList(permissionList);
-
             n = roleMapper.updateByPrimaryKeySelective(roleBean);
         }
 
         if (n == 0) {
             Throws.throwError(RoleEditError.ROLE_EDIT_ERROR);
+        }
+
+        //权限
+        //先删除权限
+        Example examplePermission = new Example(RolePermissionBean.class);
+        Example.Criteria criteria = examplePermission.createCriteria();
+        criteria.andEqualTo("roleId", roleBean.getId());
+        rolePermissionMapper.deleteByExample(examplePermission);
+        if (roleBean.getPermissions() != null
+                && roleBean.getPermissions().length > 0) {
+            //添加权限
+            for (String permissionId : roleBean.getPermissions()) {
+                RolePermissionBean rolePermissionBean = new RolePermissionBean();
+                rolePermissionBean.setRoleId(roleBean.getId());
+                rolePermissionBean.setPermissionId(permissionId);
+                rolePermissionMapper.insertSelective(rolePermissionBean);
+            }
         }
 
     }
@@ -85,5 +87,10 @@ public class RoleService {
                     "不可删除[大当家]角色");
         }
         roleMapper.deleteByPrimaryKey(id);
+        //删除角色权限
+        Example example = new Example(RolePermissionBean.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("roleId", id);
+        rolePermissionMapper.deleteByExample(example);
     }
 }
