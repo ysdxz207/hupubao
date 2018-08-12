@@ -34,7 +34,7 @@ logging:
     win.hupubao: debug
 
 server:
-  port: 8888
+  port: 2015
 
 
 auth:
@@ -45,6 +45,7 @@ access:
   origin:
     allow-origins:
     - http://127.0.0.1:8010
+    - https://ysdxz207.github.io
 
 --- #dev环境文档
 

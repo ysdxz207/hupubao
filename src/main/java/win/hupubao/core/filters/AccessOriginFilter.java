@@ -1,5 +1,6 @@
 package win.hupubao.core.filters;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -46,6 +47,8 @@ public class AccessOriginFilter implements Filter {
 
         //跨域
         String origin = req.getHeader("Origin");
+        LoggerUtils.info("[Request Origin][{}],Allows:{}", origin, JSON.toJSONString(accessOriginProperties.getAllowOrigins()));
+
         if (StringUtils.isNotBlank(origin)
                 && accessOriginProperties.getAllowOrigins().size() != 0) {
             String originAllowed = accessOriginProperties.getAllowOrigins().contains(origin) ? origin : "";

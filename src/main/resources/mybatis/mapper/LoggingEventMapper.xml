@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="win.hupubao.mapper.LoggingEventMapper" >
+
+	<sql id="conditions">
+		<where>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(loggerName)" >
+				and logger_name like '%' || #{loggerName, jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(levelString)" >
+				and level_string = #{levelString, jdbcType=VARCHAR}
+			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(callerClass)" >
+				and caller_class like '%' || #{callerFilename, jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(callerClass)" >
+				and caller_filename like '%' || #{callerFilename, jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(threadName)" >
+				and thread_name like '%' || #{threadName, jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(formattedMessage)" >
+				and formatted_message like '%' || #{formattedMessage, jdbcType=VARCHAR} || '%'
+			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(referenceFlag)" >
+				and reference_flag = #{referenceFlag, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</sql>
+	
+	<resultMap id="loggingEventBeanMap" type="win.hupubao.beans.biz.LoggingEventBean">
+		<id column="event_id" property="eventId"/>
+		<result column="caller_line" property="callerLine"/>
+		<result column="caller_method" property="callerMethod"/>
+		<result column="caller_class" property="callerClass"/>
+		<result column="caller_filename" property="callerFilename"/>
+		<result column="arg0" property="arg0"/>
+		<result column="arg1" property="arg1"/>
+		<result column="arg2" property="arg2"/>
+		<result column="arg3" property="arg3"/>
+		<result column="reference_flag" property="referenceFlag"/>
+		<result column="thread_name" property="threadName"/>
+		<result column="logger_name" property="loggerName"/>
+		<result column="formatted_message" property="formattedMessage"/>
+		<result column="level_string" property="levelString"/>
+		<result column="timestmp" property="timestmp"/>
+		<result column="exception" property="exception"/>
+		<collection property="exceptionList" resultMap="exceptionMap" javaType="java.util.List"/>
+		<collection property="propertyList" resultMap="propertyMap" javaType="java.util.List"/>
+	</resultMap>
+
+	<resultMap id="exceptionMap" type="win.hupubao.beans.biz.LoggingEventExceptionBean">
+		<result property="eventId" column="event_id"/>
+		<result property="i" column="i"/>
+		<result property="traceLine" column="trace_line"/>
+	</resultMap>
+	<resultMap id="propertyMap" type="win.hupubao.beans.biz.LoggingEventPropertyBean">
+		<result property="eventId" column="event_id"/>
+		<result property="mapped_key" column="mappedKey"/>
+		<result property="mapped_value" column="mappedValue"/>
+	</resultMap>
+
+
+	<select id="selectList"
+			parameterType="win.hupubao.beans.biz.LoggingEventBean"
+			resultMap="loggingEventBeanMap">
+		select
+			*,
+			group_concat(lee.trace_line,
+		'
+'
+		) 			as exception
+		from logging_event le
+			left join logging_event_exception lee on le.event_id = lee.event_id
+			left join logging_event_property property on le.event_id = property.event_id
+		<include refid="conditions"/>
+		group by le.event_id
+		order by lee.i asc
+	</select>
+</mapper>
