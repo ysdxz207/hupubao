@@ -24,6 +24,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mybatis/mapper/*.xml
+
 mapper:
   mappers: win.hupubao.utils.mybatis.MyMapper
   not-empty: false
@@ -45,7 +46,7 @@ access:
   origin:
     allow-origins:
     - http://127.0.0.1:8010
-    - https://ysdxz207.github.io
+    - http://manager.hupubao.win
 
 --- #dev环境文档
 
