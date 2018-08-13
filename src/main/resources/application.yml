@@ -24,6 +24,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mybatis/mapper/*.xml
+#  configuration-properties.driver.journal_mode: WAL
 
 mapper:
   mappers: win.hupubao.utils.mybatis.MyMapper
