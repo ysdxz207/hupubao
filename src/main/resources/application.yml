@@ -7,6 +7,11 @@ spring:
     username:
     password:
     driver-class-name: org.sqlite.JDBC
+    # 使用hikari并配置maximum-pool-size为1，解决sqlite因库级锁导致database is locked问题
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 1
+
 
   devtools:
     restart:
