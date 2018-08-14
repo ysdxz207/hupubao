@@ -25,6 +25,12 @@
 			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(referenceFlag)" >
 				and reference_flag = #{referenceFlag, jdbcType=VARCHAR}
 			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(startTime)" >
+				and timestmp &gt;= #{startTime, jdbcType=VARCHAR}
+			</if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(endTime)" >
+				and timestmp &lt;= #{endTime, jdbcType=VARCHAR}
+			</if>
 		</where>
 	</sql>
 	

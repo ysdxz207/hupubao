@@ -1,6 +1,8 @@
 package win.hupubao.beans.biz;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import win.hupubao.domain.LoggingEvent;
+import win.hupubao.utils.CustomDateTimeDeserializer;
 
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -18,6 +20,12 @@ public class LoggingEventBean extends LoggingEvent {
 
 	@Transient
 	private String exception;
+	@Transient
+	@JSONField(deserializeUsing = CustomDateTimeDeserializer.class)
+	private Long startTime;
+	@Transient
+	@JSONField(deserializeUsing = CustomDateTimeDeserializer.class)
+	private Long endTime;
 
 
 	public List<LoggingEventExceptionBean> getExceptionList() {
@@ -42,5 +50,21 @@ public class LoggingEventBean extends LoggingEvent {
 
 	public void setException(String exception) {
 		this.exception = exception;
+	}
+
+	public Long getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Long startTime) {
+		this.startTime = startTime;
+	}
+
+	public Long getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Long endTime) {
+		this.endTime = endTime;
 	}
 }
