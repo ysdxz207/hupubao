@@ -7,17 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import tk.mybatis.mapper.autoconfigure.MybatisProperties;
 import tk.mybatis.spring.annotation.MapperScan;
 import win.hupubao.utils.mybatis.MyMapper;
 
 import javax.sql.DataSource;
 
 @Configuration
+@EnableConfigurationProperties(MybatisProperties.class)
 @MapperScan(basePackages = {"win.hupubao.mapper.hupubao"},
         sqlSessionFactoryRef = "sqlSessionFactoryHupubao",
         markerInterface = MyMapper.class)
@@ -26,6 +29,12 @@ public class MybatisDBHupubaoConfig {
     @Autowired
     @Qualifier("hupubaoDataSource")
     private DataSource dataSourceHupubao;
+
+    private MybatisProperties mybatisProperties;
+
+    public MybatisDBHupubaoConfig(MybatisProperties mybatisProperties) {
+        this.mybatisProperties = mybatisProperties;
+    }
 
     @Bean(name = "hupubaoDataSource")
     @Primary
@@ -41,8 +50,9 @@ public class MybatisDBHupubaoConfig {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSourceHupubao);
 
-        factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources("classpath*:mybatis/mapper/hupubao/*.xml"));
+        factoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
+        factoryBean.setTypeAliasesPackage(mybatisProperties.getTypeAliasesPackage());
+        factoryBean.setConfiguration(mybatisProperties.getConfiguration());
 
         return factoryBean.getObject();
 
