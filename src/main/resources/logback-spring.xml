@@ -63,6 +63,8 @@
     <!-- 生产环境下的日志配置 -->
     <springProfile name="prod">
         <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
             <appender-ref ref="DB"/>
         </root>
     </springProfile>
