@@ -11,7 +11,7 @@
 				and level_string = #{levelString, jdbcType=VARCHAR}
 			</if>
 			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(callerClass)" >
-				and caller_class like '%' || #{callerFilename, jdbcType=VARCHAR} || '%'
+				and caller_class like '%' || #{callerClass, jdbcType=VARCHAR} || '%'
 			</if>
 			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(callerClass)" >
 				and caller_filename like '%' || #{callerFilename, jdbcType=VARCHAR} || '%'
