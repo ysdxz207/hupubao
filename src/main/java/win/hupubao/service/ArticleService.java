@@ -17,9 +17,9 @@ import win.hupubao.domain.Article;
 import win.hupubao.domain.ArticleTag;
 import win.hupubao.domain.Tag;
 import win.hupubao.enums.ArticleType;
-import win.hupubao.mapper.ArticleMapper;
-import win.hupubao.mapper.ArticleTagMapper;
-import win.hupubao.mapper.TagMapper;
+import win.hupubao.mapper.hupubao.ArticleMapper;
+import win.hupubao.mapper.hupubao.ArticleTagMapper;
+import win.hupubao.mapper.hupubao.TagMapper;
 
 import java.util.List;
 

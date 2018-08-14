@@ -9,9 +9,8 @@ import win.hupubao.beans.biz.CategoryBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.ArticleEditError;
 import win.hupubao.core.errors.CategoryEditError;
-import win.hupubao.mapper.CategoryMapper;
+import win.hupubao.mapper.hupubao.CategoryMapper;
 
 import java.util.List;
 

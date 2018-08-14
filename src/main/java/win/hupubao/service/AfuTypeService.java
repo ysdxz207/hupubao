@@ -11,7 +11,7 @@ import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.common.utils.rsa.RSA;
 import win.hupubao.core.errors.AfuTypeEditError;
-import win.hupubao.mapper.AfuTypeMapper;
+import win.hupubao.mapper.hupubao.AfuTypeMapper;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.List;

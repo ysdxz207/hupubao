@@ -3,15 +3,12 @@ spring:
     active: dev
 
   datasource:
-    url: jdbc:sqlite:db/hupubao.db
-    username:
-    password:
-    driver-class-name: org.sqlite.JDBC
-    # 使用hikari并配置maximum-pool-size为1，解决sqlite因库级锁导致database is locked问题
-    type: com.zaxxer.hikari.HikariDataSource
-    hikari:
-      maximum-pool-size: 1
-
+    hupubao:
+      jdbc-url: jdbc:sqlite:db/hupubao.db
+      driver-class-name: org.sqlite.JDBC
+    logging:
+      jdbc-url: jdbc:sqlite:db/logging.db
+      driver-class-name: org.sqlite.JDBC
 
   devtools:
     restart:
@@ -28,7 +25,7 @@ mybatis:
   type-aliases-package: org.spring.springboot.domain
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations: classpath:mybatis/mapper/*.xml
+#  mapper-locations: classpath:mybatis/mapper/*.xml
 #  configuration-properties.driver.journal_mode: WAL
 
 mapper:

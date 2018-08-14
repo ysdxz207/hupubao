@@ -11,7 +11,7 @@ import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.errors.ImageError;
 import win.hupubao.core.properties.SpringProperties;
 import win.hupubao.domain.Image;
-import win.hupubao.mapper.ImageMapper;
+import win.hupubao.mapper.hupubao.ImageMapper;
 
 @Service
 @EnableAutoConfiguration

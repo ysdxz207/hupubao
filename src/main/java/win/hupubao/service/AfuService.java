@@ -10,8 +10,7 @@ import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.errors.AfuEditError;
-import win.hupubao.core.errors.ArticleEditError;
-import win.hupubao.mapper.AfuMapper;
+import win.hupubao.mapper.hupubao.AfuMapper;
 
 import java.util.List;
 

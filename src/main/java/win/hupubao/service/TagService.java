@@ -10,7 +10,7 @@ import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.errors.TagEditError;
-import win.hupubao.mapper.TagMapper;
+import win.hupubao.mapper.hupubao.TagMapper;
 
 import java.util.List;
 

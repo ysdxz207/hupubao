@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,17 +31,17 @@ import java.util.Enumeration;
 import java.util.stream.Collectors;
 
 /**
- * @author Moses
- * @copyright Copyright by www.lamic.cn
+ * @author W.feihong
  * 注解@EnableTransactionManagement开启事务等同于xml:<tx:annotation-driven/>
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+        //禁用默认数据源
+        DataSourceAutoConfiguration.class
+})
 @RestController
 @EnableTransactionManagement
 @EnableAutoConfiguration
-@MapperScan(basePackages = {"win.hupubao.mapper"}, markerInterface = MyMapper.class)
 public class Application {
-
 
 
     @Autowired
@@ -83,7 +84,7 @@ public class Application {
 
             Object action = ApplicationContextUtils.getBean(beanName);
 
-            Method [] methods = action.getClass().getDeclaredMethods();
+            Method[] methods = action.getClass().getDeclaredMethods();
             Method method = null;
             for (Method m :
                     methods) {

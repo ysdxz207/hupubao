@@ -29,10 +29,10 @@ import win.hupubao.core.properties.AuthProperties;
 import win.hupubao.domain.Permission;
 import win.hupubao.domain.User;
 import win.hupubao.domain.UserSecurity;
-import win.hupubao.mapper.PermissionMapper;
-import win.hupubao.mapper.UserMapper;
-import win.hupubao.mapper.UserRoleMapper;
-import win.hupubao.mapper.UserSecurityMapper;
+import win.hupubao.mapper.hupubao.PermissionMapper;
+import win.hupubao.mapper.hupubao.UserMapper;
+import win.hupubao.mapper.hupubao.UserRoleMapper;
+import win.hupubao.mapper.hupubao.UserSecurityMapper;
 import win.hupubao.utils.CookieUtils;
 
 import javax.servlet.http.HttpServletRequest;

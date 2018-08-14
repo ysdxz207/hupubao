@@ -1,4 +1,4 @@
-package win.hupubao.mapper;
+package win.hupubao.mapper.hupubao;
 
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
@@ -19,7 +19,7 @@ public interface ArticleMapper extends MyMapper<Article> {
             @Result(column = "id", property = "tagList",
                     javaType = List.class,
                     many = @Many(
-                            select = "win.hupubao.mapper.TagMapper.selectTagListByArticleId",
+                            select = "win.hupubao.mapper.hupubao.TagMapper.selectTagListByArticleId",
                             fetchType = FetchType.EAGER
                     ))
     })

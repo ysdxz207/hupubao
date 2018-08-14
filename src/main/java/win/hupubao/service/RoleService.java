@@ -13,11 +13,10 @@ import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.errors.RoleEditError;
-import win.hupubao.mapper.PermissionMapper;
-import win.hupubao.mapper.RoleMapper;
-import win.hupubao.mapper.RolePermissionMapper;
+import win.hupubao.mapper.hupubao.PermissionMapper;
+import win.hupubao.mapper.hupubao.RoleMapper;
+import win.hupubao.mapper.hupubao.RolePermissionMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

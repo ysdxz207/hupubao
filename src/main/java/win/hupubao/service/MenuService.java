@@ -1,16 +1,12 @@
 package win.hupubao.service;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import win.hupubao.beans.biz.MenuBean;
 import win.hupubao.beans.sys.PageBean;
-import win.hupubao.domain.Menu;
-import win.hupubao.mapper.MenuMapper;
+import win.hupubao.mapper.hupubao.MenuMapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

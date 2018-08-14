@@ -6,8 +6,8 @@
     <!--数据库配置-->
     <property resource="application.yml" />
 
-    <springProperty  name="LOG_DB_DRIVER" source="spring.datasource.driver-class-name"/>
-    <springProperty  name="LOG_DB_URL" source="spring.datasource.url"/>
+    <springProperty  name="LOG_DB_DRIVER" source="spring.datasource.logging.driver-class-name"/>
+    <springProperty  name="LOG_DB_URL" source="spring.datasource.logging.jdbc-url"/>
 
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">

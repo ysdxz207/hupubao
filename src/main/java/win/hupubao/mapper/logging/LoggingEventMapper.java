@@ -1,4 +1,4 @@
-package win.hupubao.mapper;
+package win.hupubao.mapper.logging;
 
 import org.springframework.stereotype.Repository;
 import win.hupubao.beans.biz.LoggingEventBean;

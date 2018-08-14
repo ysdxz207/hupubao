@@ -10,7 +10,7 @@ import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.core.errors.PermissionEditError;
-import win.hupubao.mapper.PermissionMapper;
+import win.hupubao.mapper.hupubao.PermissionMapper;
 
 import java.util.List;
 

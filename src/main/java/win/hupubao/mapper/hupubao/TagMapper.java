@@ -1,4 +1,4 @@
-package win.hupubao.mapper;
+package win.hupubao.mapper.hupubao;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
