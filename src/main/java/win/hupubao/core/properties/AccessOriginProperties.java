@@ -18,10 +18,14 @@ import java.util.List;
 @ConfigurationProperties(prefix = "access.origin")
 public class AccessOriginProperties {
 
-    private List<String> allowOrigins = new ArrayList<>();
+    private String [] allowOrigins = {};
 
 
-    public List<String> getAllowOrigins() {
+    public String [] getAllowOrigins() {
         return allowOrigins;
+    }
+
+    public void setAllowOrigins(String[] allowOrigins) {
+        this.allowOrigins = allowOrigins;
     }
 }
