@@ -50,6 +50,7 @@ access:
     allow-origins:
     - http://127.0.0.1:8010
     - http://manager.hupubao.win
+    - https://manager.hupubao.win
 
 --- #dev环境文档
 
