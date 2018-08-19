@@ -39,8 +39,6 @@ logging:
 
 server:
   port: 2015
-  tomcat:
-    max-threads: 10
 
 
 auth:
