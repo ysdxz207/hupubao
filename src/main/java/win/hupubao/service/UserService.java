@@ -189,8 +189,11 @@ public class UserService {
                              HttpServletResponse response,
                              RequestBean requestBean) {
         String service = requestBean.getService();
+        //前端页面
+        boolean front = service.startsWith("front.");
         //非登录排除且未登录
-        if (!authConfiguration.getExcludes().contains(service)
+        if (!front
+                && !authConfiguration.getExcludes().contains(service)
                 && StringUtils.isEmpty(request.getSession().getAttribute(Constants.SESSION_USER_KEY))
                 && !cookieLogin(request, response)) {
             Throws.throwError(LoginError.NO_AUTH_ERROR);
