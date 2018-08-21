@@ -49,6 +49,7 @@ access:
   origin:
     allow-origins:
     - http://127.0.0.1:8010
+    - http://127.0.0.1:8011
     - http://manager.hupubao.win
     - https://manager.hupubao.win
 
@@ -60,7 +61,7 @@ spring:
   redis:
     password: 123456
 
-  domain: http://127.0.0.1:8888
+  domain: http://127.0.0.1:2015
 ...
 --- #prod环境文档
 
@@ -69,5 +70,5 @@ spring:
   redis:
     password: 123456
 
-  domain: http://hupubao.win
+  domain: https://hupubao.win
 ...
