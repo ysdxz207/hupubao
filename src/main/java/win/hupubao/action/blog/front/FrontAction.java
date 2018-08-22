@@ -88,10 +88,9 @@ public class FrontAction extends BaseAction {
                             HttpServletResponse response,
                             RequestBean requestBean) {
 
-        PageBean<CategoryBean> pageBean = getPageBean(requestBean);
-        CategoryBean categoryBean = getEntity(requestBean, CategoryBean.class);
+        PageBean<CategoryBean> pageBean = new PageBean<>(1, 100);
         try {
-            pageBean = categoryService.selectCategoryList(categoryBean, pageBean);
+            pageBean = categoryService.selectCategoryList(new CategoryBean(), pageBean);
             pageBean.success();
         } catch (Exception e) {
             LoggerUtils.error("[front分类列表]异常", e);

@@ -25,6 +25,11 @@ public class PageBean<E> extends ResponseBase<PageBean> implements Serializable 
     public PageBean() {
     }
 
+    public PageBean(int pageNum, int pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
+
     public PageBean(String service) {
         this.service = service;
     }
