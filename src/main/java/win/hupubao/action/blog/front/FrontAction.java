@@ -42,7 +42,7 @@ public class FrontAction extends BaseAction {
 
 
 
-    @ServiceInfo(value = "article")
+    @ServiceInfo(value = "articles")
     public String articles(HttpServletRequest request,
                            HttpServletResponse response,
                            RequestBean requestBean) {
@@ -59,7 +59,7 @@ public class FrontAction extends BaseAction {
         return pageBean.serialize();
     }
 
-    @ServiceInfo(value = "article.detail")
+    @ServiceInfo(value = "article")
     public String detail(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {
