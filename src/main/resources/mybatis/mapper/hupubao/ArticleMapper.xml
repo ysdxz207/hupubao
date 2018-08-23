@@ -8,9 +8,13 @@
 				and title like '%' || #{title, jdbcType=VARCHAR} || '%'
 			</if>
 
-            <if test="@win.hupubao.common.utils.StringUtils@isNotBlank(categoryId)">
-                and category_id = #{categoryId, jdbcType=VARCHAR}
-            </if>
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(categoryId)">
+				and category_id = #{categoryId, jdbcType=VARCHAR}
+			</if>
+
+			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(category)">
+				and c.name = #{category, jdbcType=VARCHAR}
+			</if>
 
             <if test="@win.hupubao.common.utils.StringUtils@isNotBlank(tagId)">
                 and at.tag_id = #{tagId, jdbcType=VARCHAR}
