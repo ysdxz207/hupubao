@@ -63,6 +63,7 @@
     <springProfile name="prod">
         <root level="INFO">
             <appender-ref ref="DB"/>
+            <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
 </configuration>

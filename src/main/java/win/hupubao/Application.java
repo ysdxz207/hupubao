@@ -79,6 +79,8 @@ public class Application {
                 Throws.throwError(SystemError.PARAMETER_ERROR);
             }
 
+            LoggerUtils.info("[网关接收到请求]{}", JSON.toJSONString(requestBean));
+
             //登录及权限
             userService.vilidateAuth(request, response, requestBean);
 
