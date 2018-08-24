@@ -52,6 +52,9 @@ access:
     - http://127.0.0.1:8011
     - http://manager.hupubao.win
     - https://manager.hupubao.win
+    - https://v2.hupubao.win
+    - http://v2.hupubao.win
+    - https://ysdxz207.github.io
 
 --- #dev环境文档
 
