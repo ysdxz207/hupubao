@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import tk.mybatis.spring.annotation.MapperScan;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.error.SystemError;
@@ -22,7 +21,6 @@ import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.service.UserService;
 import win.hupubao.utils.ApplicationContextUtils;
-import win.hupubao.utils.mybatis.MyMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,7 +77,6 @@ public class Application {
                 Throws.throwError(SystemError.PARAMETER_ERROR);
             }
 
-            LoggerUtils.info("[网关接收到请求]{}", JSON.toJSONString(requestBean));
 
             //登录及权限
             userService.vilidateAuth(request, response, requestBean);

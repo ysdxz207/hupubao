@@ -25,6 +25,28 @@
 		</where>
 	</sql>
 
+	<resultMap id="articleMap" type="win.hupubao.beans.biz.ArticleBean">
+		<id column="id" property="id"/>
+		<result column="creator" property="creator"/>
+		<result column="title" property="title"/>
+		<result column="context" property="context"/>
+		<result column="category_id" property="categoryId"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_update_date" property="lastUpdateDate"/>
+		<result column="type" property="type"/>
+		<result column="status" property="status"/>
+		<result column="category" property="category"/>
+		<result column="tags" property="tags"/>
+		<collection property="tagList" javaType="java.util.List" resultMap="tagMap">
+		</collection>
+	</resultMap>
+
+	<resultMap id="tagMap" type="win.hupubao.beans.biz.TagBean">
+		<id column="tag_id" property="id"/>
+		<result column="tag_name" property="name"/>
+		<result column="tag_create_time" property="createTime"/>
+	</resultMap>
+
 
 	<select id="selectList"
 			parameterType="win.hupubao.beans.biz.ArticleBean"
@@ -40,5 +62,21 @@
 			left join tag t on at.tag_id = t.id
 		<include refid="conditions"/>
 		group by a.id
+	</select>
+
+	<select id="selectArticleDetail"
+			parameterType="java.lang.String"
+			resultMap="articleMap">
+		select
+			a.*,
+			c.name as category,
+			t.id as tag_id,
+			t.name as tag_name,
+			t.create_time as tag_create_time
+		from article a
+			left join article_tag at on a.id = at.article_id
+			left join tag t on at.tag_id = t.id
+			left join category c on a.category_id = c.id
+		where a.id = #{id, jdbcType=VARCHAR}
 	</select>
 </mapper>
