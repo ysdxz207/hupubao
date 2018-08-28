@@ -17,6 +17,7 @@ public class Article implements Serializable {
 	@KeySql(genId = IdGenerator.class)
 	private String id;
 	private String creator;
+	private String intro;
 	private String title;
 	private String context;
 	private String categoryId;
@@ -41,6 +42,14 @@ public class Article implements Serializable {
 
 	public void setCreator(String creator) {
 		this.creator = creator;
+	}
+
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
 
 	public String getTitle() {

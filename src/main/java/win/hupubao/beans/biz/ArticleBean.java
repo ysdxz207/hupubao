@@ -13,8 +13,11 @@ public class ArticleBean extends Article {
     private String category;
     @Transient
     private List<TagBean> tagList;
+    /**
+     * 搜索用
+     */
     @Transient
-    private String tagId;//搜索用
+    private String tagId;
     @Transient
     private Integer accessCountAll;
     @Transient
