@@ -37,6 +37,7 @@
 		<result column="status" property="status"/>
 		<result column="category" property="category"/>
 		<result column="tags" property="tags"/>
+		<result column="intro" property="intro"/>
 		<collection property="tagList" javaType="java.util.List" resultMap="tagMap">
 		</collection>
 	</resultMap>
