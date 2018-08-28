@@ -25,11 +25,10 @@
 		</where>
 	</sql>
 
-	<resultMap id="articleMap" type="win.hupubao.beans.biz.ArticleBean">
+	<resultMap id="articleListMap" type="win.hupubao.beans.biz.ArticleBean">
 		<id column="id" property="id"/>
 		<result column="creator" property="creator"/>
 		<result column="title" property="title"/>
-		<result column="context" property="context"/>
 		<result column="category_id" property="categoryId"/>
 		<result column="create_time" property="createTime"/>
 		<result column="last_update_date" property="lastUpdateDate"/>
@@ -42,6 +41,11 @@
 		</collection>
 	</resultMap>
 
+	<resultMap id="articleMap" extends="articleListMap"
+			   type="win.hupubao.beans.biz.ArticleBean">
+		<result column="context" property="context"/>
+	</resultMap>
+
 	<resultMap id="tagMap" type="win.hupubao.beans.biz.TagBean">
 		<id column="tag_id" property="id"/>
 		<result column="tag_name" property="name"/>
@@ -51,7 +55,7 @@
 
 	<select id="selectList"
 			parameterType="win.hupubao.beans.biz.ArticleBean"
-			resultType="win.hupubao.beans.biz.ArticleBean">
+			resultMap="articleListMap">
 		select
 			a.*,
 			c.name as category,
