@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
 import win.hupubao.beans.biz.AfuBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
@@ -55,5 +56,9 @@ public class AfuService {
     public AfuBean detail(String id) {
 
         return afuMapper.selectByPrimaryKey(id);
+    }
+
+    public List<AfuBean> selectByExample(Object o) {
+        return afuMapper.selectByExample(o);
     }
 }

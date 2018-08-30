@@ -70,7 +70,7 @@ public class Application {
             String methodName = null;
             try {
                 requestBean = JSON.toJavaObject(params, RequestBean.class);
-                int index = requestBean.getService().lastIndexOf(".");
+                int index = requestBean.getService().indexOf(".");
                 beanName = requestBean.getService().substring(0, index).toLowerCase();
                 methodName = requestBean.getService().substring(index + 1);
             } catch (Exception e) {

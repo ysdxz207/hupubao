@@ -13,6 +13,8 @@ public class RequestBean implements Serializable {
 
     private static final long serialVersionUID = 2813925168595560461L;
     private String service;
+    private String sign;
+    private String signType;
     private String bizContent;
 
     public String getService() {
@@ -21,6 +23,22 @@ public class RequestBean implements Serializable {
 
     public void setService(String service) {
         this.service = service;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
+
+    public String getSignType() {
+        return signType;
+    }
+
+    public void setSignType(String signType) {
+        this.signType = signType;
     }
 
     public String getBizContent() {

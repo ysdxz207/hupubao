@@ -3,6 +3,7 @@ package win.hupubao.domain;
 import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
 import win.hupubao.core.generator.IdGenerator;
+import win.hupubao.core.generator.UUIdGenerator;
 import win.hupubao.utils.CustomDateTimeSerializer;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ public class AfuType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@KeySql(genId = IdGenerator.class)
+	@KeySql(genId = UUIdGenerator.class)
 	private String id;
 	private String name;
 	private String tag;

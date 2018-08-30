@@ -190,7 +190,7 @@ public class UserService {
                              RequestBean requestBean) {
         String service = requestBean.getService();
         //前端页面
-        boolean front = service.startsWith("front.");
+        boolean front = service.startsWith("front.") || service.startsWith("api.");
         //非登录排除且未登录
         if (!front
                 && !authConfiguration.getExcludes().contains(service)
