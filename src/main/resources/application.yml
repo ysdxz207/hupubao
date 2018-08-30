@@ -9,6 +9,8 @@ spring:
     logging:
       jdbc-url: jdbc:sqlite:db/logging.db
       driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1
 
   devtools:
     restart:
