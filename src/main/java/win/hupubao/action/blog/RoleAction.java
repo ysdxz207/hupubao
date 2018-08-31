@@ -2,7 +2,6 @@ package win.hupubao.action.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.sqlite.SQLiteException;
 import win.hupubao.action.BaseAction;
 import win.hupubao.beans.biz.PermissionBean;
 import win.hupubao.beans.biz.RoleBean;
@@ -14,7 +13,6 @@ import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.Permission;
 import win.hupubao.service.PermissionService;
@@ -22,10 +20,7 @@ import win.hupubao.service.RoleService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author W.feihong
