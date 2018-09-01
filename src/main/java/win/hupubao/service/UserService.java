@@ -38,6 +38,7 @@ import win.hupubao.utils.CookieUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,7 +120,7 @@ public class UserService {
         if (userSecurity == null) {
             userSecurity = new UserSecurity();
             userSecurity.setUserId(userBean.getId());
-            userSecurity.setCreateTime(System.currentTimeMillis());
+            userSecurity.setCreateTime(new Date());
         }
         userSecurity.setDesKey(RandomStringUtils.randomAlphanumeric(10));
 

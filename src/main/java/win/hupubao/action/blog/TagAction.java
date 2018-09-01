@@ -11,6 +11,7 @@ import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
+import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
@@ -44,6 +45,7 @@ public class TagAction extends BaseAction {
             pageBean.success();
         } catch (Exception e) {
             pageBean.error(e);
+            LoggerUtils.error("[标签列表异常]", e);
         }
         return pageBean.serialize();
     }

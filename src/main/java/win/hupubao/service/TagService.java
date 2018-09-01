@@ -23,7 +23,7 @@ public class TagService {
     public PageBean<TagBean> selectTagList(TagBean tag,
                                        PageBean<TagBean> pageBean) {
         Page page = PageHelper.startPage(pageBean.getPageNum(),
-                pageBean.getPageSize(), "create_time desc");
+                pageBean.getPageSize(), "t.id desc");
         List<TagBean> tagList = tagMapper.selectList(tag);
         pageBean.setList(tagList);
         pageBean.setTotal(page.getTotal());

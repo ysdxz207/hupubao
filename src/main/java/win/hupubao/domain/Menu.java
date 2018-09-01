@@ -1,13 +1,12 @@
 package win.hupubao.domain;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
 import win.hupubao.core.generator.IdGenerator;
-import win.hupubao.utils.CustomDateTimeSerializer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Menu implements Serializable {
@@ -26,8 +25,7 @@ public class Menu implements Serializable {
 	private String code;
 	private String pid;
 	private Integer expand;
-	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
-	private Long createTime;
+	private Date createTime;
 
 	public String getId() {
 		return id;
@@ -118,11 +116,11 @@ public class Menu implements Serializable {
 	}
 
 
-	public Long getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Long createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 }

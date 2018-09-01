@@ -31,13 +31,15 @@
 		<result column="title" property="title"/>
 		<result column="category_id" property="categoryId"/>
 		<result column="create_time" property="createTime"/>
-		<result column="last_update_date" property="lastUpdateDate"/>
+		<result column="last_update_time" property="lastUpdateTime"/>
 		<result column="type" property="type"/>
 		<result column="status" property="status"/>
 		<result column="category" property="category"/>
-		<result column="tags" property="tags"/>
 		<result column="intro" property="intro"/>
-		<collection property="tagList" javaType="java.util.List" resultMap="tagMap">
+		<collection property="tagList"
+                    javaType="java.util.List"
+                    select="win.hupubao.mapper.hupubao.TagMapper.selectList"
+                    column="{articleId=id}">
 		</collection>
 	</resultMap>
 
@@ -46,27 +48,23 @@
 		<result column="context" property="context"/>
 	</resultMap>
 
-	<resultMap id="tagMap" type="win.hupubao.beans.biz.TagBean">
-		<id column="tag_id" property="id"/>
-		<result column="tag_name" property="name"/>
-		<result column="tag_create_time" property="createTime"/>
-	</resultMap>
-
-
 	<select id="selectList"
 			parameterType="win.hupubao.beans.biz.ArticleBean"
 			resultMap="articleListMap">
 		select
-			a.*,
-			c.name as category,
-			GROUP_CONCAT(t.name, ',') as tags
-
+			a.id,
+			a.creator,
+			a.title,
+			a.category_id,
+			a.create_time,
+			a.last_update_time,
+			a.type,
+			a.status,
+			a.intro,
+			c.name as category
 		from article a
 			left join category c on a.category_id = c.id
-			left join article_tag at on a.id = at.article_id
-			left join tag t on at.tag_id = t.id
 		<include refid="conditions"/>
-		group by a.id
 	</select>
 
 	<select id="selectArticleDetail"
@@ -74,13 +72,8 @@
 			resultMap="articleMap">
 		select
 			a.*,
-			c.name as category,
-			t.id as tag_id,
-			t.name as tag_name,
-			t.create_time as tag_create_time
+			c.name as category
 		from article a
-			left join article_tag at on a.id = at.article_id
-			left join tag t on at.tag_id = t.id
 			left join category c on a.category_id = c.id
 		where a.id = #{id, jdbcType=VARCHAR}
 	</select>

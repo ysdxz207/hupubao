@@ -21,9 +21,9 @@
 			u.*,
 			r.role_name as roleName,
 			r.id as roleId
-		from user u
+		from "user" u
 			left join user_role ur on ur.user_id = u.id
-			left join role r on r.id = ur.role_id
+			left join "role" r on r.id = ur.role_id
 		<include refid="conditions"/>
 	</select>
 </mapper>

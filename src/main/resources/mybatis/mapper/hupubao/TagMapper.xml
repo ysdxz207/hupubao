@@ -4,9 +4,12 @@
 
 	<sql id="conditions">
 		<where>
-			<if test="@win.hupubao.common.utils.StringUtils@isNotBlank(name)" >
-				and title like '%' || #{name, jdbcType=VARCHAR} || '%'
-			</if>
+            <if test="@win.hupubao.common.utils.StringUtils@isNotBlank(name)" >
+                and title like '%' || #{name, jdbcType=VARCHAR} || '%'
+            </if>
+            <if test="@win.hupubao.common.utils.StringUtils@isNotBlank(articleId)" >
+                and at.article_id = #{articleId, jdbcType=VARCHAR}
+            </if>
 		</where>
 	</sql>
 
@@ -22,7 +25,8 @@
 			resultType="win.hupubao.beans.biz.TagBean">
 		select
 			*
-		from tag
+		from tag t
+        left join article_tag at on t.id = at.tag_id
 		<include refid="conditions"/>
 	</select>
 </mapper>

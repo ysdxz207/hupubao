@@ -16,7 +16,7 @@
 			resultType="win.hupubao.beans.biz.RoleBean">
 		select
 			*
-		from role
+		from "role"
 		<include refid="conditions"/>
 	</select>
 </mapper>

@@ -1,13 +1,12 @@
 package win.hupubao.domain;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
 import win.hupubao.core.generator.IdGenerator;
-import win.hupubao.utils.CustomDateTimeSerializer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Role implements Serializable {
@@ -18,8 +17,7 @@ public class Role implements Serializable {
 	private String id;
 	private String roleName;
 	private String code;
-	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
-	private Long createTime;
+	private Date createTime;
 
 
 	public String getId (){
@@ -46,11 +44,11 @@ public class Role implements Serializable {
 		this.code = code;
 	}
 
-	public Long getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Long createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 }

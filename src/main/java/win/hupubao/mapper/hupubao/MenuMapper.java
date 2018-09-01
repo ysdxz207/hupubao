@@ -11,7 +11,7 @@ import java.util.List;
 public interface MenuMapper extends MyMapper<MenuBean> {
 
 
-    @Select("select * from menu where pid='root' group by type")
+    @Select("select * from menu where pid='root' group by type,id")
     List<MenuBean> selectMenuTypeList();
 
 }

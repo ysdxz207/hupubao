@@ -59,6 +59,7 @@
     <!-- 开发环境下的日志配置 -->
     <springProfile name="dev">
         <root level="INFO">
+            <appender-ref ref="DB"/>
             <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
@@ -68,6 +69,7 @@
         <root level="INFO">
             <appender-ref ref="DB"/>
             <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 </configuration>

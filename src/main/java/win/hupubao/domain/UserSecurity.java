@@ -6,6 +6,7 @@ import win.hupubao.core.generator.IdGenerator;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -22,7 +23,7 @@ public class UserSecurity implements Serializable {
 	private String id;
 	private String userId;
 	private String desKey;
-	private Long createTime;
+	private Date createTime;
 
 	public String getId() {
 		return id;
@@ -48,11 +49,11 @@ public class UserSecurity implements Serializable {
 		this.desKey = desKey;
 	}
 
-	public Long getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Long createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 }
