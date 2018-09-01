@@ -103,6 +103,7 @@ public class Application {
             try {
                 return method.invoke(action, request, response, requestBean);
             } catch (Exception e) {
+                LoggerUtils.error("[请求异常]", e);
                 return responseBean.error(e);
             }
         } catch (Exception e) {

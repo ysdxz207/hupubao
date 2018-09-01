@@ -3,7 +3,7 @@ spring:
     active: dev
 
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/hupubao
+    url: jdbc:postgresql://hupubao.win:5432/hupubao
     driver-class-name: org.postgresql.Driver
     username: hupubao
     password: 1061831336
