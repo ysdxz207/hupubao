@@ -3,10 +3,7 @@ spring:
     active: dev
 
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/hupubao
     driver-class-name: org.postgresql.Driver
-    username: hupubao
-    password: 1061831336
     hikari:
       maximum-pool-size: 5
 
@@ -59,6 +56,11 @@ access:
 spring:
   profiles: dev
 
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/hupubao
+    username: hupubao
+    password: 123456
+
   redis:
     password: 123456
 
@@ -68,6 +70,11 @@ spring:
 
 spring:
   profiles: prod
+
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/hupubao
+    username: hupubao
+    password: ysdxz207@hupubao.win
   redis:
     password: 123456
 
