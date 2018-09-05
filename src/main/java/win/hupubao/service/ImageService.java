@@ -13,6 +13,8 @@ import win.hupubao.core.properties.SpringProperties;
 import win.hupubao.domain.Image;
 import win.hupubao.mapper.hupubao.ImageMapper;
 
+import java.util.Date;
+
 @Service
 @EnableAutoConfiguration
 public class ImageService {
@@ -33,7 +35,7 @@ public class ImageService {
                     "Argument [name] should not be null.");
         }
 
-        image.setCreateTime(System.currentTimeMillis());
+        image.setCreateTime(new Date());
         if (imageMapper.insertSelective(image) == 0) {
             Throws.throwError(ImageError.IMAGE_UPLOAD_ERROR);
         }

@@ -20,13 +20,12 @@ public class CustomDateTimeSerializer implements ObjectSerializer {
                       Object fieldName, java.lang.reflect.Type fieldType, int features)
 			throws IOException {
 		SerializeWriter out = serializer.getWriter();
-		Long value = (Long) object;
+		Date value = (Date) object;
         if (value == null){
         	out.write("\"\"");
         	return;
         }
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		//System.out.println(sdf.format(value * 1000));
-		out.write("\"" + sdf.format(new Date(value)) + "\"");
+		out.write("\"" + sdf.format(value) + "\"");
 	}
 }

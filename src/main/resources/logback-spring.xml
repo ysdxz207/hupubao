@@ -4,10 +4,12 @@
     <property name="LOG_HOME" value="/logs/hupubao"/>
 
     <!--数据库配置-->
-    <property resource="application.yml" />
+    <property resource="application.yml"/>
 
-    <springProperty  name="LOG_DB_DRIVER" source="spring.datasource.logging.driver-class-name"/>
-    <springProperty  name="LOG_DB_URL" source="spring.datasource.logging.jdbc-url"/>
+    <springProperty name="LOG_DB_DRIVER" source="spring.datasource.driver-class-name"/>
+    <springProperty name="LOG_DB_URL" source="spring.datasource.url"/>
+    <springProperty name="LOG_DB_USERNAME" source="spring.datasource.username"/>
+    <springProperty name="LOG_DB_PASSWORD" source="spring.datasource.password"/>
 
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
@@ -48,6 +50,8 @@
         <connectionSource class="ch.qos.logback.core.db.DriverManagerConnectionSource">
             <driverClass>${LOG_DB_DRIVER}</driverClass>
             <url>${LOG_DB_URL}</url>
+            <user>${LOG_DB_USERNAME}</user>
+            <password>${LOG_DB_PASSWORD}</password>
         </connectionSource>
     </appender>
 
@@ -55,6 +59,7 @@
     <!-- 开发环境下的日志配置 -->
     <springProfile name="dev">
         <root level="INFO">
+            <appender-ref ref="DB"/>
             <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
@@ -64,6 +69,7 @@
         <root level="INFO">
             <appender-ref ref="DB"/>
             <appender-ref ref="STDOUT"/>
+            <appender-ref ref="FILE"/>
         </root>
     </springProfile>
 </configuration>

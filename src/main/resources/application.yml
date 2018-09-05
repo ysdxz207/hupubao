@@ -3,18 +3,10 @@ spring:
     active: dev
 
   datasource:
-    hupubao:
-      jdbc-url: jdbc:sqlite:db/hupubao.db
-      driver-class-name: org.sqlite.JDBC
-    logging:
-      jdbc-url: jdbc:sqlite:db/logging.db
-      driver-class-name: org.sqlite.JDBC
+    driver-class-name: org.postgresql.Driver
     hikari:
-      maximum-pool-size: 1
+      maximum-pool-size: 5
 
-  devtools:
-    restart:
-      enabled: false
 
   redis:
       database: 0
@@ -64,6 +56,11 @@ access:
 spring:
   profiles: dev
 
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/hupubao
+    username: hupubao
+    password: 123456
+
   redis:
     password: 123456
 
@@ -73,6 +70,11 @@ spring:
 
 spring:
   profiles: prod
+
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/hupubao
+    username: hupubao
+    password: ysdxz207@hupubao.win
   redis:
     password: 123456
 

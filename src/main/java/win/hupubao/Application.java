@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.spring.annotation.MapperScan;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.error.SystemError;
@@ -21,6 +22,7 @@ import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.service.UserService;
 import win.hupubao.utils.ApplicationContextUtils;
+import win.hupubao.utils.mybatis.MyMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,16 +31,15 @@ import java.util.Enumeration;
 import java.util.stream.Collectors;
 
 /**
- * @author W.feihong
+ * @author Moses
+ * @copyright Copyright by www.lamic.cn
  * 注解@EnableTransactionManagement开启事务等同于xml:<tx:annotation-driven/>
  */
-@SpringBootApplication(exclude = {
-        //禁用默认数据源
-        DataSourceAutoConfiguration.class
-})
+@SpringBootApplication
 @RestController
 @EnableTransactionManagement
 @EnableAutoConfiguration
+@MapperScan(basePackages = {"win.hupubao.mapper"}, markerInterface = MyMapper.class)
 public class Application {
 
 
@@ -102,6 +103,7 @@ public class Application {
             try {
                 return method.invoke(action, request, response, requestBean);
             } catch (Exception e) {
+                LoggerUtils.error("[请求异常]", e);
                 return responseBean.error(e);
             }
         } catch (Exception e) {

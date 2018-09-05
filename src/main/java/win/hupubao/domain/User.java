@@ -1,13 +1,13 @@
 package win.hupubao.domain;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import tk.mybatis.mapper.annotation.KeySql;
 import win.hupubao.core.generator.IdGenerator;
-import win.hupubao.utils.CustomDateTimeSerializer;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
@@ -16,6 +16,7 @@ import java.io.Serializable;
  *
  */
 @Entity
+@Table(name = "&quot;user&quot;")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,10 +26,8 @@ public class User implements Serializable {
 	private String username;
 	private String nickname;
 	private String password;
-	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
-	private Long createTime;
-	@JSONField(serializeUsing = CustomDateTimeSerializer.class)
-	private Long lastLoginTime;
+	private Date createTime;
+	private Date lastLoginTime;
 	private Integer status;
 
 	public String getId() {
@@ -63,19 +62,19 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public Long getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Long createTime) {
+	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
 
-	public Long getLastLoginTime() {
+	public Date getLastLoginTime() {
 		return lastLoginTime;
 	}
 
-	public void setLastLoginTime(Long lastLoginTime) {
+	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
 

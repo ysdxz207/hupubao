@@ -49,6 +49,7 @@ public class UserAction extends BaseAction {
             request.getSession().setAttribute(Constants.SESSION_USER_KEY, userBean);
         } catch (Exception e) {
             responseBean.error(e);
+            LoggerUtils.error("[登录异常]", e);
         }
         return responseBean;
     }

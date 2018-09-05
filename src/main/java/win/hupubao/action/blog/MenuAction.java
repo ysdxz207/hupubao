@@ -43,6 +43,7 @@ public class MenuAction extends BaseAction {
             responseBean.success(menuList);
         } catch (Exception e) {
             responseBean.error(e);
+            LoggerUtils.error("[菜单类型列表异常]", e);
         }
         return responseBean.serialize();
     }
@@ -59,6 +60,7 @@ public class MenuAction extends BaseAction {
             pageBean.success();
         } catch (Exception e) {
             pageBean.error(e);
+            LoggerUtils.error("[菜单列表异常]", e);
         }
         return pageBean.serialize();
     }

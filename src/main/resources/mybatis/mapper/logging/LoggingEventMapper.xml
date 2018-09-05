@@ -72,15 +72,12 @@
 			resultMap="loggingEventBeanMap">
 		select
 			*,
-			group_concat(lee.trace_line,
-		'
-'
-		) 			as exception
+			array_agg(lee.trace_line) 			as exception
 		from logging_event le
 			left join logging_event_exception lee on le.event_id = lee.event_id
 			left join logging_event_property property on le.event_id = property.event_id
 		<include refid="conditions"/>
-		group by le.event_id
+		group by le.event_id,lee.event_id,lee.i,property.event_id,property.mapped_key
 		order by lee.i asc
 	</select>
 </mapper>
