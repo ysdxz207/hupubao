@@ -82,7 +82,7 @@ public class FrontAction extends BaseAction {
                             HttpServletResponse response,
                             RequestBean requestBean) {
 
-        PageBean<CategoryBean> pageBean = new PageBean<>(1, 100);
+        PageBean<CategoryBean> pageBean = getPageBean(requestBean);
         try {
             pageBean = categoryService.selectCategoryList(new CategoryBean(), pageBean);
             pageBean.success();
