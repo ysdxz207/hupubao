@@ -89,8 +89,8 @@ public class ApiAction extends BaseAction {
             AfuBean afuDB = null;
             if (afus != null && afus.size() == 1) {
                 afuDB = afus.get(0);
+                afuBean.setId(afuDB.getId());
             }
-            afuBean.setId(afuDB.getId());
             afuService.edit(afuBean);
 
             responseBean.success(afuBean);
