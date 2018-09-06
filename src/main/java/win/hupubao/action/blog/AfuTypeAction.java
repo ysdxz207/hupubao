@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author W.feihong
  * @date 2018-08-02
  */
-@Component("afu.type")
+@Component("afuType")
 public class AfuTypeAction extends BaseAction {
 
     @Autowired
