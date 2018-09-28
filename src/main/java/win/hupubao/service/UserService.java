@@ -79,7 +79,7 @@ public class UserService {
         }
 
         if (!userBean.getCaptcha().equalsIgnoreCase(userBean.getSessionCaptcha())) {
-//                Throws.throwError(LoginError.WRONG_CAPTCHA_ERROR);
+            Throws.throwError(LoginError.WRONG_CAPTCHA_ERROR);
         }
 
         userBean.setPassword(Md5Utils.md5(userBean.getPassword() + Constants.PASSWORD_MD5_SALT));
@@ -100,7 +100,7 @@ public class UserService {
 
 
     public void rememberMe(HttpServletResponse response,
-                            UserBean userBean) throws Exception {
+                           UserBean userBean) throws Exception {
 
         //自动登录
         boolean rememberMe = StringUtils.isNotBlank(userBean.getRememberMe())
