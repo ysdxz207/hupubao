@@ -31,8 +31,7 @@ import java.util.Enumeration;
 import java.util.stream.Collectors;
 
 /**
- * @author Moses
- * @copyright Copyright by www.lamic.cn
+ * @author W.feihong
  * 注解@EnableTransactionManagement开启事务等同于xml:<tx:annotation-driven/>
  */
 @SpringBootApplication
