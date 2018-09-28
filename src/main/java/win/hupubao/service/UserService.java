@@ -265,6 +265,7 @@ public class UserService {
             if (StringUtils.isBlank(userBean.getPassword())) {
                 userBean.setPassword(null);
             }
+            userBean.setPassword(Md5Utils.md5(userBean.getPassword() + Constants.PASSWORD_MD5_SALT));
             n = userMapper.updateByPrimaryKeySelective(userBean);
         }
 
