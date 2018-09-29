@@ -28,6 +28,7 @@ public class LoggingEvent implements Serializable {
     private String levelString;
     private String loggerName;
     private String formattedMessage;
+    @JSONField(serializeUsing = CustomDateTimeSerializer.class)
     private Long timestmp;
 
 

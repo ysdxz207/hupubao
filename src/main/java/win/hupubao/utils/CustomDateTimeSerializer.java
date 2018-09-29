@@ -20,7 +20,12 @@ public class CustomDateTimeSerializer implements ObjectSerializer {
                       Object fieldName, java.lang.reflect.Type fieldType, int features)
 			throws IOException {
 		SerializeWriter out = serializer.getWriter();
-		Date value = (Date) object;
+		Date value = null;
+		if (object instanceof Date) {
+			value = (Date) object;
+		} else if (object instanceof Long) {
+			value = new Date((Long) object);
+		}
         if (value == null){
         	out.write("\"\"");
         	return;
