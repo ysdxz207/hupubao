@@ -83,5 +83,5 @@ spring:
   redis:
     password: 123456
 
-  domain: https://hupubao.win
+  domain: http://hupubao.win
 ...

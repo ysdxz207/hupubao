@@ -74,7 +74,7 @@ create table image
     unique,
   name        TEXT                    not null,
   base64      TEXT                    not null,
-  url         TEXT                    not null,
+  url         TEXT                    null,
   create_time TIMESTAMP default now() not null
 );
 
