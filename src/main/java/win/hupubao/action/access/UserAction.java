@@ -150,6 +150,7 @@ public class UserAction extends BaseAction {
 
         try {
             request.getSession().removeAttribute(Constants.SESSION_USER_KEY);
+            responseBean.success();
         } catch (Exception e) {
             responseBean.error(e);
             LoggerUtils.error("[退出异常]", e);
