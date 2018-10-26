@@ -141,4 +141,19 @@ public class UserAction extends BaseAction {
         }
         return responseBean.serialize();
     }
+
+    @ServiceInfo(value = "logout")
+    public ResponseBean logout(HttpServletRequest request,
+                              HttpServletResponse response,
+                              RequestBean requestBean) {
+        ResponseBean responseBean = new ResponseBean(requestBean.getService());
+
+        try {
+            request.getSession().removeAttribute(Constants.SESSION_USER_KEY);
+        } catch (Exception e) {
+            responseBean.error(e);
+            LoggerUtils.error("[退出异常]", e);
+        }
+        return responseBean;
+    }
 }
