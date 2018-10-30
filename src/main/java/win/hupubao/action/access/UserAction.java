@@ -16,6 +16,7 @@ import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.User;
 import win.hupubao.service.UserService;
+import win.hupubao.utils.CookieUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -150,6 +151,7 @@ public class UserAction extends BaseAction {
 
         try {
             request.getSession().removeAttribute(Constants.SESSION_USER_KEY);
+            CookieUtils.removeCookie(response, Constants.COOKIE_LOGIN_KEY_FBLOG);
             responseBean.success();
         } catch (Exception e) {
             responseBean.error(e);
