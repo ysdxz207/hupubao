@@ -7,6 +7,7 @@ import win.hupubao.beans.biz.MenuBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.beans.ResponseBase;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
@@ -33,6 +34,7 @@ public class MenuAction extends BaseAction {
     private MenuService menuService;
 
     @ServiceInfo(value = "type", permissions = {"menu:view"})
+    @LogReqResArgs
     public String type(HttpServletRequest request,
                           HttpServletResponse response,
                           RequestBean requestBean) {
@@ -49,6 +51,7 @@ public class MenuAction extends BaseAction {
     }
 
     @ServiceInfo(value = "list", permissions = {"menu:view"})
+    @LogReqResArgs
     public String menus(HttpServletRequest request,
                               HttpServletResponse response,
                               RequestBean requestBean) {
@@ -66,6 +69,7 @@ public class MenuAction extends BaseAction {
     }
 
     @ServiceInfo(value = "nav", permissions = {"menu:view"})
+    @LogReqResArgs
     public String navMenu(HttpServletRequest request,
                         HttpServletResponse response,
                         RequestBean requestBean) {

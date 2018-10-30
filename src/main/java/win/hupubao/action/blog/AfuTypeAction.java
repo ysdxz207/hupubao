@@ -7,6 +7,7 @@ import win.hupubao.beans.biz.AfuTypeBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
@@ -27,6 +28,7 @@ public class AfuTypeAction extends BaseAction {
     private AfuTypeService afuTypeService;
 
     @ServiceInfo(value = "list", permissions = {"afuType:view"})
+    @LogReqResArgs
     public String afuTypes(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -43,6 +45,7 @@ public class AfuTypeAction extends BaseAction {
     }
 
     @ServiceInfo(value = "edit", permissions = {"afuType:edit"})
+    @LogReqResArgs
     public String edit(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -62,6 +65,7 @@ public class AfuTypeAction extends BaseAction {
     }
 
     @ServiceInfo(value = "detail", permissions = {"afuType:view"})
+    @LogReqResArgs
     public String detail(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -85,6 +89,7 @@ public class AfuTypeAction extends BaseAction {
     }
 
     @ServiceInfo(value = "delete", permissions = {"afuType:delete"})
+    @LogReqResArgs
     public String delete(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {

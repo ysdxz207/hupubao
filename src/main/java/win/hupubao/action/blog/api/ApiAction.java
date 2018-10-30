@@ -9,6 +9,7 @@ import win.hupubao.beans.biz.AfuTypeBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
@@ -33,6 +34,7 @@ public class ApiAction extends BaseAction {
 
 
     @ServiceInfo(value = "afu.list")
+    @LogReqResArgs
     public String afus(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -59,6 +61,7 @@ public class ApiAction extends BaseAction {
     }
 
     @ServiceInfo(value = "afu.edit")
+    @LogReqResArgs
     public String afuEdit(HttpServletRequest request,
                           HttpServletResponse response,
                           RequestBean requestBean) {
@@ -102,6 +105,7 @@ public class ApiAction extends BaseAction {
     }
 
     @ServiceInfo(value = "afu.detail")
+    @LogReqResArgs
     public String afuDetail(HttpServletRequest request,
                             HttpServletResponse response,
                             RequestBean requestBean) {
@@ -127,6 +131,7 @@ public class ApiAction extends BaseAction {
     }
 
     @ServiceInfo(value = "afu.delete")
+    @LogReqResArgs
     public String afuDelete(HttpServletRequest request,
                             HttpServletResponse response,
                             RequestBean requestBean) {

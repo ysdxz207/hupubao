@@ -9,6 +9,7 @@ import win.hupubao.beans.biz.UserBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
@@ -35,6 +36,7 @@ public class ArticleAction extends BaseAction {
     private ArticleService articleService;
 
     @ServiceInfo(value = "list", permissions = {"article:view"})
+    @LogReqResArgs
     public String articles(HttpServletRequest request,
                            HttpServletResponse response,
                            RequestBean requestBean) {
@@ -52,6 +54,7 @@ public class ArticleAction extends BaseAction {
     }
 
     @ServiceInfo(value = "detail", permissions = {"article:view"})
+    @LogReqResArgs
     public String detail(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {
@@ -75,6 +78,7 @@ public class ArticleAction extends BaseAction {
     }
 
     @ServiceInfo(value = "edit", permissions = {"article:edit"})
+    @LogReqResArgs
     public String edit(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {
@@ -99,6 +103,7 @@ public class ArticleAction extends BaseAction {
     }
 
     @ServiceInfo(value = "delete", permissions = {"article:delete"})
+    @LogReqResArgs
     public String delete(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {

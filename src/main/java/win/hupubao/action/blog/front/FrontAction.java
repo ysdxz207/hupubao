@@ -9,6 +9,7 @@ import win.hupubao.beans.biz.TagBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.utils.LoggerUtils;
 import win.hupubao.core.annotation.ServiceInfo;
 import win.hupubao.domain.Article;
@@ -37,6 +38,7 @@ public class FrontAction extends BaseAction {
 
 
     @ServiceInfo(value = "articles")
+    @LogReqResArgs
     public String articles(HttpServletRequest request,
                            HttpServletResponse response,
                            RequestBean requestBean) {
@@ -54,6 +56,7 @@ public class FrontAction extends BaseAction {
     }
 
     @ServiceInfo(value = "article")
+    @LogReqResArgs
     public String detail(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {
@@ -78,6 +81,7 @@ public class FrontAction extends BaseAction {
 
 
     @ServiceInfo(value = "category")
+    @LogReqResArgs
     public String categorys(HttpServletRequest request,
                             HttpServletResponse response,
                             RequestBean requestBean) {
@@ -94,6 +98,7 @@ public class FrontAction extends BaseAction {
     }
 
     @ServiceInfo(value = "tag")
+    @LogReqResArgs
     public String tags(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {

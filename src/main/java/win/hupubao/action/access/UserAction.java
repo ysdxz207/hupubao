@@ -8,6 +8,7 @@ import win.hupubao.beans.biz.UserBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
@@ -29,6 +30,7 @@ public class UserAction extends BaseAction {
 
 
     @ServiceInfo(value = "login")
+    @LogReqResArgs
     public ResponseBean login(HttpServletRequest request,
                               HttpServletResponse response,
                               RequestBean requestBean) {
@@ -63,6 +65,7 @@ public class UserAction extends BaseAction {
      * @return
      */
     @ServiceInfo(value = "info", permissions = {"user:view"})
+    @LogReqResArgs
     public ResponseBean info(HttpServletRequest request,
                              HttpServletResponse response,
                              RequestBean requestBean) {
@@ -87,6 +90,7 @@ public class UserAction extends BaseAction {
     }
 
     @ServiceInfo(value = "list", permissions = {"user:view"})
+    @LogReqResArgs
     public String users(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -104,6 +108,7 @@ public class UserAction extends BaseAction {
     }
 
     @ServiceInfo(value = "edit", permissions = {"user:edit"})
+    @LogReqResArgs
     public String edit(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -123,6 +128,7 @@ public class UserAction extends BaseAction {
     }
 
     @ServiceInfo(value = "delete", permissions = {"user:delete"})
+    @LogReqResArgs
     public String delete(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {
@@ -144,6 +150,7 @@ public class UserAction extends BaseAction {
     }
 
     @ServiceInfo(value = "logout")
+    @LogReqResArgs
     public ResponseBean logout(HttpServletRequest request,
                               HttpServletResponse response,
                               RequestBean requestBean) {

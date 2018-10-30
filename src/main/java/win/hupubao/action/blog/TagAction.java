@@ -9,6 +9,7 @@ import win.hupubao.beans.biz.UserBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
@@ -34,6 +35,7 @@ public class TagAction extends BaseAction {
     private TagService tagService;
 
     @ServiceInfo(value = "list", permissions = {"tag:view"})
+    @LogReqResArgs
     public String tags(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -51,6 +53,7 @@ public class TagAction extends BaseAction {
     }
 
     @ServiceInfo(value = "edit", permissions = {"tag:edit"})
+    @LogReqResArgs
     public String edit(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -70,6 +73,7 @@ public class TagAction extends BaseAction {
     }
 
     @ServiceInfo(value = "delete", permissions = {"tag:delete"})
+    @LogReqResArgs
     public String delete(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {

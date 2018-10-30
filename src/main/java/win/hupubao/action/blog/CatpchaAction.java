@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import win.hupubao.action.BaseAction;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.utils.Captcha;
 import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.ServiceInfo;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CatpchaAction extends BaseAction {
 
     @ServiceInfo(value = "create")
+    @LogReqResArgs
     public ResponseBean create(HttpServletRequest request,
                                HttpServletResponse response,
                                RequestBean requestBean) {

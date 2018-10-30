@@ -9,6 +9,7 @@ import win.hupubao.beans.biz.UserBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
+import win.hupubao.common.annotations.LogReqResArgs;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.LoggerUtils;
@@ -37,6 +38,7 @@ public class RoleAction extends BaseAction {
     private PermissionService permissionService;
 
     @ServiceInfo(value = "list", permissions = {"role:view"})
+    @LogReqResArgs
     public String roles(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -54,6 +56,7 @@ public class RoleAction extends BaseAction {
     }
 
     @ServiceInfo(value = "edit", permissions = {"role:edit"})
+    @LogReqResArgs
     public String edit(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
@@ -73,6 +76,7 @@ public class RoleAction extends BaseAction {
     }
 
     @ServiceInfo(value = "delete", permissions = {"role:delete"})
+    @LogReqResArgs
     public String delete(HttpServletRequest request,
                          HttpServletResponse response,
                          RequestBean requestBean) {
@@ -97,6 +101,7 @@ public class RoleAction extends BaseAction {
 
 
     @ServiceInfo(value = "permissions", permissions = {"permission:view"})
+    @LogReqResArgs
     public String permissions(HttpServletRequest request,
                                  HttpServletResponse response,
                                  RequestBean requestBean) {
