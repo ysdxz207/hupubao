@@ -127,6 +127,7 @@
 							<artifactId>hupubao-common</artifactId>
 						</aspectLibrary>
 					</aspectLibraries>
+					<sources/>
 				</configuration>
 				<executions>
 					<execution>
