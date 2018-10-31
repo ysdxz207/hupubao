@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -87,9 +89,9 @@ public class Application {
             Method method = null;
             for (Method m :
                     methods) {
-                ServiceInfo serviceName = m.getAnnotation(ServiceInfo.class);
-                if (serviceName != null
-                        && serviceName.value().equals(methodName)) {
+                // 因为有aop，cglib动态代理类的注解无法直接获取，通过spring的工具获取。
+                ServiceInfo serviceName = AnnotationUtils.findAnnotation(m, ServiceInfo.class);
+                if (serviceName != null && serviceName.value().equals(methodName)) {
                     method = m;
                     break;
                 }

@@ -33,7 +33,7 @@ public class CategoryAction extends BaseAction {
 
     @ServiceInfo(value = "list", permissions = {"category:view"})
     @LogReqResArgs
-    public String categorys(HttpServletRequest request,
+    public String categories(HttpServletRequest request,
                        HttpServletResponse response,
                        RequestBean requestBean) {
 

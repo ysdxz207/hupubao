@@ -1,8 +1,9 @@
 package win.hupubao.core.exception;
 
-import win.hupubao.common.exception.ThrowsBisinessException;
 
-public class NoPermissionsException extends ThrowsBisinessException {
+import win.hupubao.common.exception.BusinessException;
+
+public class NoPermissionsException extends BusinessException {
 
     public NoPermissionsException() {
     }

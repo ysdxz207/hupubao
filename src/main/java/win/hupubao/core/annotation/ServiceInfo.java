@@ -11,6 +11,7 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented//说明该注解将被包含在javadoc中
+@Inherited// 支持继承，这样在aop的cglib动态代理类中才能获取到注解
 public @interface ServiceInfo {
     String value();
 
