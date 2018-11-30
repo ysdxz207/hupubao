@@ -72,6 +72,9 @@ public class Application {
             String methodName = null;
             try {
                 requestBean = JSON.toJavaObject(params, RequestBean.class);
+                if (requestBean.getService() == null) {
+                    Throws.throwError(SystemError.PARAMETER_ERROR, "Need Argument [service].");
+                }
                 int index = requestBean.getService().indexOf(".");
                 beanName = requestBean.getService().substring(0, index);
                 methodName = requestBean.getService().substring(index + 1);
