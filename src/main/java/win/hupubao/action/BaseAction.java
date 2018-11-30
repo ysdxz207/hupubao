@@ -8,6 +8,7 @@ import win.hupubao.beans.sys.RequestBean;
 import win.hupubao.beans.sys.ResponseBean;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
+import win.hupubao.common.utils.StringUtils;
 import win.hupubao.common.utils.rsa.RSA;
 
 import java.util.Map;
@@ -27,6 +28,9 @@ public class BaseAction {
 
     @SuppressWarnings("unchecked")
     protected void verifySign(RequestBean requestBean, String privateKey, String publicKey) {
+        if (StringUtils.isBlank(requestBean.getBizContent())) {
+            Throws.throwError(SystemError.SIGN_ERROR);
+        }
         JSONObject params = JSON.parseObject(requestBean.getBizContent());
         String sign = requestBean.getSign();
         RSA.RSAKey rsaKey = new RSA.RSAKey(privateKey, publicKey);
