@@ -88,6 +88,11 @@ public class Application {
 
             Object action = ApplicationContextUtils.getBean(beanName);
 
+            if (action == null) {
+
+                Throws.throwError(SystemError.PARAMETER_ERROR, "Unknown action .");
+            }
+
             Method[] methods = action.getClass().getDeclaredMethods();
             Method method = null;
             for (Method m :
@@ -101,7 +106,7 @@ public class Application {
             }
 
             if (method == null) {
-                Throws.throwError(SystemError.PARAMETER_ERROR);
+                Throws.throwError(SystemError.PARAMETER_ERROR, "Unknown method .");
             }
 
             try {
