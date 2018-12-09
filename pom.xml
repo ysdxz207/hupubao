@@ -141,6 +141,22 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>com.hupubao</groupId>
+				<artifactId>dockit-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<scanPackage>win.hupubao</scanPackage>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>dockit</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 

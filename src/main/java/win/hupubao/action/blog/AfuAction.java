@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 /**
  * @author W.feihong
  * @date 2018-08-02
+ * @dockit 阿福接口
  */
 @Component("afu")
 public class AfuAction extends BaseAction {
@@ -31,6 +32,13 @@ public class AfuAction extends BaseAction {
     @Autowired
     private AfuService afuService;
 
+    /**
+     * @description 阿福列表
+     * @requestMethod POST
+     * @param pageNum,Integer,required 页码
+     * @param pageSize,Integer 分页大小
+     * @return aa
+     */
     @ServiceInfo(value = "list", permissions = {"afu:view"})
     @LogReqResArgs
     public String afus(HttpServletRequest request,
