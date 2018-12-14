@@ -38,7 +38,7 @@ public class AfuAction extends BaseAction {
      * @requestMethod POST
      * @arg pageNum,Integer,是 页码
      * @arg pageSize,Integer,否 分页大小
-     *
+     * @return {@link java.util.ArrayList<win.hupubao.beans.biz.AfuBean>}
      */
     @ServiceInfo(value = "list", permissions = {"afu:view"})
     @LogReqResArgs
