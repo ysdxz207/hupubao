@@ -33,11 +33,12 @@ public class AfuAction extends BaseAction {
     private AfuService afuService;
 
     /**
-     * @description 阿福列表
+     * @title 阿福列表接口
+     * @description 查询阿福列表
      * @requestMethod POST
-     * @param pageNum,Integer,required 页码
-     * @param pageSize,Integer 分页大小
-     * @return aa
+     * @arg pageNum,Integer,是 页码
+     * @arg pageSize,Integer,否 分页大小
+     *
      */
     @ServiceInfo(value = "list", permissions = {"afu:view"})
     @LogReqResArgs
