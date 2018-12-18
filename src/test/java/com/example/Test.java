@@ -1,13 +1,15 @@
 package com.example;
 
+import com.alibaba.fastjson.JSON;
+import org.jsoup.Connection;
+import win.hupubao.common.http.Page;
+
 public class Test {
 
-    @org.junit.Test
+//    @org.junit.Test
     public void test() {
-        String [] arr = new String[] {"11", "22"};
+        Page.Response res = Page.create().request("http://dev-gateway.lamic.cn/tianfuPay/openIdAndUserIdNotify", JSON.parseObject(""), Connection.Method.POST);
 
-        int i = 0;
-        System.out.println(arr[i ++]);
-        System.out.println(i);
+        System.out.println(res);
     }
 }

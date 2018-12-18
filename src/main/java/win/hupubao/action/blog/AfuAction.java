@@ -34,10 +34,15 @@ public class AfuAction extends BaseAction {
 
     /**
      * @title 阿福列表接口
-     * @description 查询阿福列表
-     * @requestMethod POST
+     * @desc 查询阿福列表
+     * @method POST
      * @arg pageNum,Integer,是 页码
      * @arg pageSize,Integer,否 分页大小
+     * @resArg id,String,是 ID
+     * @resArg name,String,是 名称
+     * @resArg type,String,是 类型
+     * @resArg createTime,String,是 创建时间
+     * @resArg content,String,是 内容
      * @return {@link java.util.ArrayList<win.hupubao.beans.biz.AfuBean>}
      */
     @ServiceInfo(value = "list", permissions = {"afu:view"})
