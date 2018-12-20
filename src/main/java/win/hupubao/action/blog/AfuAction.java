@@ -48,7 +48,6 @@ public class AfuAction extends BaseAction {
      * @resArg list[type],String,是 类型
      * @resArg list[createTime],String,是 创建时间
      * @resArg list[content],String,是 内容
-     * @resArg fake.title,String,是 法克
      */
     @ServiceInfo(value = "list", permissions = {"afu:view"})
     @LogReqResArgs
