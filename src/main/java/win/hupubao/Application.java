@@ -39,7 +39,6 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 @RestController
 @EnableTransactionManagement
-@EnableAutoConfiguration
 @MapperScan(basePackages = {"win.hupubao.mapper"}, markerInterface = MyMapper.class)
 public class Application {
 
