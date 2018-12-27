@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * json格式日期自定义反序列化
- * @author W.feihong
+ * @author ysdxz207
  * @date 2018-08-14
  */
 public class CustomDateTimeDeserializer implements ObjectDeserializer {
