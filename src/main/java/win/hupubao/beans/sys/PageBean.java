@@ -12,7 +12,7 @@ import java.util.List;
  * @date 2018-07-4
  * 返回分页参数
  */
-public class PageBean<E> extends ResponseBase<PageBean> implements Serializable {
+public class PageBean<E> extends ResponseBase implements Serializable {
 
     private static final long serialVersionUID = 2945891986747887468L;
     private String service;
