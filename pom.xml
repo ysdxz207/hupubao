@@ -145,6 +145,9 @@
 				<groupId>win.hupubao</groupId>
 				<artifactId>dockit-maven-plugin</artifactId>
 				<version>1.0.0</version>
+				<configuration>
+					<templateCharset>UTF-8</templateCharset>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>compile</phase>
