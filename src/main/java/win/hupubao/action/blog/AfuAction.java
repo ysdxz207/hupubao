@@ -41,10 +41,12 @@ public class AfuAction extends BaseAction {
      * @method POST
      * @arg pageNum,Integer,是,页码
      * @arg pageSize,Integer,否,分页大小
-     * @resArg service,String,是,请求服务，原样返回
+     * @resArg service,Object,是,请求服务，原样返回
      * @resArg service.subObject,Object,是,service子对象
      * @resArg service.subObject.id,Integer,是,service子对象ID
      * @resArg service.subObject.name,String,是,service子对象名
+     * @resArg service.subArray,Array,是,service子数组
+     * @resArg service.subArray.name,String,是,service子数组名
      * @resArg list,Array,是,阿福列表
      * @resArg list.id,String,是,ID
      * @resArg list.name,String,是,名称
