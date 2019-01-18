@@ -9,7 +9,7 @@ import win.hupubao.beans.biz.PermissionBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.PermissionEditError;
+import win.hupubao.errors.PermissionError;
 import win.hupubao.mapper.hupubao.PermissionMapper;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class PermissionService {
         }
 
         if (n == 0) {
-            Throws.throwError(PermissionEditError.PERMISSION_EDIT_ERROR);
+            Throws.throwError(PermissionError.PERMISSION_EDIT_ERROR);
         }
 
     }

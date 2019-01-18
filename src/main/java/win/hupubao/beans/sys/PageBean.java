@@ -12,10 +12,9 @@ import java.util.List;
  * @date 2018-07-4
  * 返回分页参数
  */
-public class PageBean<E> extends ResponseBase implements Serializable {
+public class PageBean<E> extends ResponseBean implements Serializable {
 
     private static final long serialVersionUID = 2945891986747887468L;
-    private String service;
     private List<E> list = new ArrayList<>();
 
     private int pageNum = 1;
@@ -28,18 +27,6 @@ public class PageBean<E> extends ResponseBase implements Serializable {
     public PageBean(int pageNum, int pageSize) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
-    }
-
-    public PageBean(String service) {
-        this.service = service;
-    }
-
-    public String getService() {
-        return service;
-    }
-
-    public void setService(String service) {
-        this.service = service;
     }
 
     public List<E> getList() {

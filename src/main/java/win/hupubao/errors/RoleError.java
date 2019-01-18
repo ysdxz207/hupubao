@@ -1,14 +1,14 @@
-package win.hupubao.core.errors;
+package win.hupubao.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 
-public enum AfuTypeEditError implements ErrorInfo {
-    AFU_TYPE_EDIT_ERROR("AFU_TYPE_EDIT_ERROR", "编辑阿福类别失败");
+public enum RoleError implements ErrorInfo {
+    ROLE_EDIT_ERROR("ROLE_EDIT_ERROR", "编辑角色失败");
 
     public String error_code;
     public String error_msg;
 
-    private AfuTypeEditError(String error_code, String error_msg) {
+    private RoleError(String error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
     }

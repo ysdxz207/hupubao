@@ -1,14 +1,14 @@
-package win.hupubao.core.errors;
+package win.hupubao.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 
-public enum TagEditError implements ErrorInfo {
-    TAG_EDIT_ERROR("TAG_EDIT_ERROR", "编辑标签失败");
+public enum PermissionError implements ErrorInfo {
+    PERMISSION_EDIT_ERROR("PERMISSION_EDIT_ERROR", "编辑权限失败");
 
     public String error_code;
     public String error_msg;
 
-    private TagEditError(String error_code, String error_msg) {
+    private PermissionError(String error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
     }

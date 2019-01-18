@@ -8,7 +8,7 @@ import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.ImageError;
+import win.hupubao.errors.ImageError;
 import win.hupubao.core.properties.SpringProperties;
 import win.hupubao.domain.Image;
 import win.hupubao.mapper.hupubao.ImageMapper;

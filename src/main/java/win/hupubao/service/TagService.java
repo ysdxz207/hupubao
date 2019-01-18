@@ -9,7 +9,7 @@ import win.hupubao.beans.biz.TagBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.TagEditError;
+import win.hupubao.errors.TagError;
 import win.hupubao.mapper.hupubao.TagMapper;
 
 import java.util.List;
@@ -42,7 +42,7 @@ public class TagService {
         }
 
         if (n == 0) {
-            Throws.throwError(TagEditError.TAG_EDIT_ERROR);
+            Throws.throwError(TagError.TAG_EDIT_ERROR);
         }
 
     }

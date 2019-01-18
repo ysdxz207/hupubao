@@ -1,14 +1,14 @@
-package win.hupubao.core.errors;
+package win.hupubao.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 
-public enum PermissionEditError implements ErrorInfo {
-    PERMISSION_EDIT_ERROR("PERMISSION_EDIT_ERROR", "编辑权限失败");
+public enum AfuTypeError implements ErrorInfo {
+    AFU_TYPE_EDIT_ERROR("AFU_TYPE_EDIT_ERROR", "编辑阿福类别失败");
 
     public String error_code;
     public String error_msg;
 
-    private PermissionEditError(String error_code, String error_msg) {
+    private AfuTypeError(String error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
     }

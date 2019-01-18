@@ -25,6 +25,7 @@ create table afu_type
   tag         VARCHAR(128) default NULL,
   private_key TEXT                    not null,
   public_key  TEXT                    not null,
+  md5_key  VARCHAR(64)                not null,
   create_time TIMESTAMP default now() not null,
   status      SMALLINT default 1      not null
 );

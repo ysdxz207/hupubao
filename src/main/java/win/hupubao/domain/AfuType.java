@@ -19,6 +19,7 @@ public class AfuType implements Serializable {
 	private String tag;
 	private String privateKey;
 	private String publicKey;
+	private String md5Key;
 	private Integer status;
 	private Date createTime;
 
@@ -61,6 +62,14 @@ public class AfuType implements Serializable {
 
 	public void setPublicKey(String publicKey) {
 		this.publicKey = publicKey;
+	}
+
+	public String getMd5Key() {
+		return md5Key;
+	}
+
+	public void setMd5Key(String md5Key) {
+		this.md5Key = md5Key;
 	}
 
 	public Integer getStatus() {

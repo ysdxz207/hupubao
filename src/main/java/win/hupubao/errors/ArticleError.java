@@ -1,14 +1,14 @@
-package win.hupubao.core.errors;
+package win.hupubao.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 
-public enum CategoryEditError implements ErrorInfo {
-    CATAEGORY_EDIT_ERROR("CATAEGORY_EDIT_ERROR", "编辑分类失败");
+public enum ArticleError implements ErrorInfo {
+    ARTICLE_EDIT_ERROR("ARTICLE_EDIT_ERROR", "编辑文章失败");
 
     public String error_code;
     public String error_msg;
 
-    private CategoryEditError(String error_code, String error_msg) {
+    private ArticleError(String error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
     }

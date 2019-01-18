@@ -12,7 +12,7 @@ import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.SystemError;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.RoleEditError;
+import win.hupubao.errors.RoleError;
 import win.hupubao.mapper.hupubao.PermissionMapper;
 import win.hupubao.mapper.hupubao.RoleMapper;
 import win.hupubao.mapper.hupubao.RolePermissionMapper;
@@ -57,7 +57,7 @@ public class RoleService {
         }
 
         if (n == 0) {
-            Throws.throwError(RoleEditError.ROLE_EDIT_ERROR);
+            Throws.throwError(RoleError.ROLE_EDIT_ERROR);
         }
 
         //权限

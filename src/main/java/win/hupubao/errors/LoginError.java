@@ -1,4 +1,4 @@
-package win.hupubao.core.errors;
+package win.hupubao.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 

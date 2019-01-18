@@ -5,12 +5,11 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import tk.mybatis.mapper.entity.Example;
 import win.hupubao.beans.biz.AfuBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.AfuEditError;
+import win.hupubao.errors.AfuError;
 import win.hupubao.mapper.hupubao.AfuMapper;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public class AfuService {
         }
 
         if (n == 0) {
-            Throws.throwError(AfuEditError.AFU_EDIT_ERROR);
+            Throws.throwError(AfuError.AFU_EDIT_ERROR);
         }
 
     }

@@ -12,11 +12,11 @@ import win.hupubao.beans.biz.TagBean;
 import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
-import win.hupubao.core.errors.ArticleEditError;
 import win.hupubao.domain.Article;
 import win.hupubao.domain.ArticleTag;
 import win.hupubao.domain.Tag;
 import win.hupubao.enums.ArticleType;
+import win.hupubao.errors.ArticleError;
 import win.hupubao.mapper.hupubao.ArticleMapper;
 import win.hupubao.mapper.hupubao.ArticleTagMapper;
 import win.hupubao.mapper.hupubao.TagMapper;
@@ -71,7 +71,7 @@ public class ArticleService {
         }
 
         if (n == 0) {
-            Throws.throwError(ArticleEditError.ARTICLE_EDIT_ERROR);
+            Throws.throwError(ArticleError.ARTICLE_EDIT_ERROR);
         }
 
         //标签

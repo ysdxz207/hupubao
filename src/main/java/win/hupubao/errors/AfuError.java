@@ -1,16 +1,15 @@
-package win.hupubao.core.errors;
+package win.hupubao.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 
-public enum ImageError implements ErrorInfo {
-    IMAGE_UPLOAD_ERROR("IMAGE_UPLOAD_ERROR", "图片上传失败"),
-    IMAGE_NOT_EXISTS_ERROR("IMAGE_NOT_EXISTS_ERROR", "图片不存在"),
-    IMAGE_DELETE_ERROR("IMAGE_DELETE_ERROR", "图片删除失败");
+public enum AfuError implements ErrorInfo {
+    AFU_EDIT_ERROR("AFU_EDIT_ERROR", "编辑阿福失败"),
+    AFU_NOT_EXITS_ERROR("AFU_NOT_EXITS_ERROR", "阿福不存在");
 
     public String error_code;
     public String error_msg;
 
-    private ImageError(String error_code, String error_msg) {
+    private AfuError(String error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
     }

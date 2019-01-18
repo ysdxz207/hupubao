@@ -10,7 +10,7 @@ import win.hupubao.beans.sys.PageBean;
 import win.hupubao.common.error.Throws;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.common.utils.rsa.RSA;
-import win.hupubao.core.errors.AfuTypeEditError;
+import win.hupubao.errors.AfuTypeError;
 import win.hupubao.mapper.hupubao.AfuTypeMapper;
 
 import java.security.NoSuchAlgorithmException;
@@ -53,7 +53,7 @@ public class AfuTypeService {
         }
 
         if (n == 0) {
-            Throws.throwError(AfuTypeEditError.AFU_TYPE_EDIT_ERROR);
+            Throws.throwError(AfuTypeError.AFU_TYPE_EDIT_ERROR);
         }
 
     }

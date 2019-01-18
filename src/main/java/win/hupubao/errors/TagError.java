@@ -1,14 +1,14 @@
-package win.hupubao.core.errors;
+package win.hupubao.errors;
 
 import win.hupubao.common.error.ErrorInfo;
 
-public enum RoleEditError implements ErrorInfo {
-    ROLE_EDIT_ERROR("ROLE_EDIT_ERROR", "编辑角色失败");
+public enum TagError implements ErrorInfo {
+    TAG_EDIT_ERROR("TAG_EDIT_ERROR", "编辑标签失败");
 
     public String error_code;
     public String error_msg;
 
-    private RoleEditError(String error_code, String error_msg) {
+    private TagError(String error_code, String error_msg) {
         this.error_code = error_code;
         this.error_msg = error_msg;
     }

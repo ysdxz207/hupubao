@@ -23,8 +23,8 @@ import win.hupubao.common.utils.Md5Utils;
 import win.hupubao.common.utils.StringUtils;
 import win.hupubao.constants.Constants;
 import win.hupubao.core.annotation.Logical;
-import win.hupubao.core.errors.LoginError;
-import win.hupubao.core.errors.UserEditError;
+import win.hupubao.errors.LoginError;
+import win.hupubao.errors.UserError;
 import win.hupubao.core.properties.AuthProperties;
 import win.hupubao.domain.Permission;
 import win.hupubao.domain.User;
@@ -281,7 +281,7 @@ public class UserService {
         userRoleMapper.insertSelective(userRoleBean);
 
         if (n == 0) {
-            Throws.throwError(UserEditError.USER_EDIT_ERROR);
+            Throws.throwError(UserError.USER_EDIT_ERROR);
         }
     }
 
