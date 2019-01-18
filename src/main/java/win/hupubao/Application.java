@@ -64,7 +64,7 @@ public class Application {
     @RequestMapping("/")
     private Object index(HttpServletRequest request,
                          HttpServletResponse response) {
-        RequestBean requestBean;
+        RequestBean requestBean = new RequestBean();
         ResponseBean responseBean = new ResponseBean();
 
         try {
@@ -118,18 +118,14 @@ public class Application {
                 verifySign(afuTypeBean, requestBean);
             }
 
-            try {
-                responseBean = (ResponseBean) method.invoke(action, request, response, requestBean);
-                responseBean.setRandomString(requestBean.getRandomString());
-                responseBean.setService(requestBean.getService());
-                responseBean.setSignType(requestBean.getSignType());
-                responseBean.setSign(makeSign(afuTypeBean, responseBean));
-                return responseBean;
-            } catch (Exception e) {
-                LoggerUtils.error("请求接口[{}]异常", requestBean.getService(), e);
-                return responseBean.error(e);
-            }
+            responseBean = (ResponseBean) method.invoke(action, request, response, requestBean);
+            responseBean.setRandomString(requestBean.getRandomString());
+            responseBean.setService(requestBean.getService());
+            responseBean.setSignType(requestBean.getSignType());
+            responseBean.setSign(makeSign(afuTypeBean, responseBean));
+            return responseBean;
         } catch (Exception e) {
+            LoggerUtils.error("请求接口[{}]异常", requestBean.getService(), e);
             responseBean.error(e);
         }
 
@@ -185,6 +181,7 @@ public class Application {
 
     /**
      * 签名
+     *
      * @param afuTypeBean
      * @param result
      * @return
@@ -219,6 +216,7 @@ public class Application {
 
     /**
      * 验签
+     *
      * @param afuTypeBean
      * @param requestBean
      */
@@ -241,7 +239,6 @@ public class Application {
         if (requestBean.getRandomString().length() > MAX_RANDOM_STRING_LENGTH) {
             Throws.throwError(SystemError.PARAMETER_ERROR, "Argument [randomString] length should less than 32.");
         }
-
 
 
         Map<String, String> params = new HashMap<>(6);
